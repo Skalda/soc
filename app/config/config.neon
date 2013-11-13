@@ -25,7 +25,8 @@ common:
 
 
 	services:
-		authenticator: Authenticator
+		authenticator: Model\Users
+		notificationsModel: Model\Notifications
 		routerFactory: RouterFactory
 		router: @routerFactory::createRouter
 
@@ -36,3 +37,11 @@ common:
 production < common:
 
 development < common:
+	nette:
+		application:
+			errorPresenter: Error
+
+		database:
+			dsn: 'mysql:host=localhost;dbname=sociocars'
+			user: root
+			password: toor

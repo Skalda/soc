@@ -1,0 +1,11 @@
+{layout "./@layout.latte"}
+{block con}
+<h1>Změna profilovky</h1>
+aktuální profilovka: 
+{if $profilPic != ""}
+<img src="{$basePath}/data/profil/{$profilPic}" alt="profil" width="150" height="150">
+{else}
+<img data-src="js/holder.js/150x150" alt="profil" width="150" height="150">
+{/if}
+
+{control imageUploadForm}

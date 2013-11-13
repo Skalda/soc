@@ -12,7 +12,7 @@ class Authenticator extends Nette\Object implements Security\IAuthenticator
 	const
 		TABLE_NAME = 'users',
 		COLUMN_ID = 'id',
-		COLUMN_NAME = 'username',
+		COLUMN_NAME = 'email',
 		COLUMN_PASSWORD = 'password',
 		COLUMN_ROLE = 'role',
 		PASSWORD_MAX_LENGTH = 4096;
@@ -48,21 +48,6 @@ class Authenticator extends Nette\Object implements Security\IAuthenticator
 		$arr = $row->toArray();
 		unset($arr[self::COLUMN_PASSWORD]);
 		return new Nette\Security\Identity($row[self::COLUMN_ID], $row[self::COLUMN_ROLE], $arr);
-	}
-
-
-	/**
-	 * Computes salted password hash.
-	 * @param  string
-	 * @return string
-	 */
-	public static function calculateHash($password, $salt = NULL)
-	{
-		if ($password === Strings::upper($password)) { // perhaps caps lock is on
-			$password = Strings::lower($password);
-		}
-		$password = substr($password, 0, self::PASSWORD_MAX_LENGTH);
-		return crypt($password, $salt ?: '$2a$07$' . Strings::random(22));
 	}
 
 }

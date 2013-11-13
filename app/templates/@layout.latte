@@ -45,31 +45,39 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Bootstrap theme</a>
+          <a class="navbar-brand" n:href="Homepage:">Sociocars</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            
+            <li {ifCurrent Homepage:}class="active"{/ifCurrent}><a n:href="Homepage:">Domů</a></li>
+            <li {ifCurrent Notifications:add}class="active"{/ifCurrent}><a n:href="Notifications:add">Notifications creater</a></li>
+            <li {ifCurrent Homepage:bootstrap}class="active"{/ifCurrent}><a n:href="Homepage:bootstrap">Bootstrap helper</a></li>
+	  </ul>
+	  <ul class="nav navbar-nav navbar-right">
+	    {if !$user->isLoggedIn()}
+	    <li {ifCurrent Sign:in}class="active"{/ifCurrent}><a n:href="Sign:in">Přihlášení</a></li>
+            <li {ifCurrent Sign:up}class="active"{/ifCurrent}><a n:href="Sign:up">Registrace</a></li>
+	    {else}
+	    <li {ifCurrent Notifications:}class="active"{/ifCurrent}><a n:href="Notifications:">Notifikace <span class="badge">{$numNotif}</span></a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Přihlášen: {$user->getIdentity()->email} <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
+                <li><a n:href="Settings:">Nastavení</a></li>
+                <li><a n:href="Sign:out">Odhlásit</a></li>
               </ul>
             </li>
+	    {/if}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
 
     <div class="container theme-showcase">
+	<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">
+	    {$flash->message}
+	  </div>
+      
 
       {include #content}
 

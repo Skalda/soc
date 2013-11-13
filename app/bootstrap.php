@@ -4,6 +4,8 @@
 require __DIR__ . '/../libs/autoload.php';
 
 
+define('WWW_DIR', __DIR__ . '/../www');
+define('LIB_DIR', __DIR__ . '/../libs');
 $configurator = new Nette\Config\Configurator;
 
 // Enable Nette Debugger for error visualisation & logging

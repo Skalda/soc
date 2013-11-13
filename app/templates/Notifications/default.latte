@@ -1,0 +1,5 @@
+
+{block content}
+<ul class="list-group">
+  <li class="list-group-item" n:foreach="$notifications as $not"><a n:href="$not['link']">{$not['message']}</a></li>
+</ul>
