@@ -40,15 +40,20 @@ class Notifications extends Table
         
 	public function getNotifications($userId){
 	    $rows = $this->findBy(array('users_id' => $userId))->order('time DESC');
+	    $not = array();
 	    foreach($rows as $key=>$val) {
-		$rows[$key]['attr'] = json_decode($val['attr']);
-		$rows[$key]['link_params'] = json_decode($val['link_params']);
-		$rows[$key]['message'] = $this->replaceHolder($val['message'], $val['attr']);
+		$attr = json_decode($val['attr']);
+		$not[$key]['attr'] = $attr;
+		$not[$key]['link_params'] = (array)json_decode($val['link_params']);
+		$not[$key]['link'] = $val['link'];
+		$not[$key]['message'] = $this->replaceHolder($val['message'], $attr);
+		$not[$key]['time'] = $val['time'];
 	    }
+	    
 	    $rows->update(array(
 		'seen' => 1,
 	    ));
-	    return $rows;
+	    return $not;
 	}
 	
 	public function getUnseenNotificationsCount($userId) {

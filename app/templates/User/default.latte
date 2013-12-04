@@ -1,0 +1,21 @@
+
+{block cont}
+{if $user->isLoggedIn && $user->getId() == $userId}
+{control addWallPost}
+{/if}
+{foreach $wallposts as $post}
+<div class="row">
+    <h4>{$post->date|date:'d.m.Y'}</h4>
+    <p>{!$post->content|escape|nl2br}</p>
+    <div class="comments">
+	<h4>Komentáře</h4>
+	{foreach $post->related('comments')->order('date') as $comment}
+		<h5>{$comment->user->email} - {$comment->date|date:'d.m.Y'}</h5>
+		<p>{$comment->content}</p>
+	{/foreach}
+	{if $viewer != 0}
+	{control addCommentForm-$post->id}
+	{/if}
+</div>
+</div>
+{/foreach}

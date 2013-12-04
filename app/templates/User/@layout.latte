@@ -1,0 +1,36 @@
+{layout '../@layout.latte'}
+{block content}
+<div class="col-sm-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{$userinfo['name']} {$userinfo['surname']}</h3>
+            </div>
+            <div class="panel-body">
+              {if $userinfo['profilpic'] != ""}
+		<img src="{$basePath}/data/profil/{$userinfo['profilpic']}" alt="profil" width="150" height="150">
+		{else}
+		<img data-src="{$basePath}/js/holder.js/150x150" alt="profil" width="150" height="150">
+		{/if}
+	    <br>
+	    
+	     {if $userinfo['sex'] == 'male'}Muž{elseif $userinfo['sex'] == 'female'}Žena{/if}<br>
+	    Město: {$userinfo['city']}<br>
+            </div>
+          </div>
+        </div>
+<div class="col-sm-9">
+    <div class="navbar">
+	<ul class="nav nav-tabs navbar-left">
+	    <li{ifCurrent User:default} class="active"{/ifCurrent}><a n:href="default, id=>$userId">Zeď</a></li>
+	    <li{ifCurrent User:friends} class="active"{/ifCurrent}><a n:href="friends, id=>$userId">Přátelé</a></li>
+
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+	    {if $user->isLoggedIn()}
+	<li>{control addFriendsButton} </li>
+	{/if}
+	</ul>
+    </div>
+    {block cont}{/block}
+</div>
+{/block}

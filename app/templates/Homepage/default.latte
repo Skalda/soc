@@ -1,3 +1,6 @@
 {block content}
 <h1>Sociální síť pro motoristy</h1>
 <p>Sociální síť pro motoristy</p>
+<ul n:inner-foreach="$userslist as $u">
+    <li><a n:href="User:, id=>$u->id">{$u->email}</a></li>
+</ul>

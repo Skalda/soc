@@ -12,6 +12,13 @@ class Users extends Table implements Security\IAuthenticator
 	/** @var string */
 	protected $tableName = 'users';
 	
+	const NON_FRIEND = 0,
+		FRIEND = 1,
+		AUTHOR = 2;
+	
+	const ALL = 0,
+		FRIENDS_ONLY = 1;
+	
 	public function addUser($email, $password, $name, $surname, $sex, $city) {
 		$salt = sha1(time().$email."ad~632as@!oa");
 		$password = $this->getPasswordHash($password, $salt);
@@ -45,6 +52,7 @@ class Users extends Table implements Security\IAuthenticator
 		'surname' => $surname,
 		'sex' => $sex,
 		'city' => $city,
+		'filled_data' => 1
 	    ));
 	}
 	
@@ -57,9 +65,49 @@ class Users extends Table implements Security\IAuthenticator
 	
 	public function getUser($id) {
 	    $row = $this->find($id);
+	    if(!$row) {
+		return null;
+	    }
 	    $data = $row->toArray();
 	    unset($data['password'], $data['salt']);
 	    return $data;
+	}
+	
+	public function getUsersWall($id, $viewer = self::NON_FRIEND) {
+	    $user = $this->find($id);
+	    $wallpost = $user->related('wall')->order('date DESC');
+	    if($viewer == self::NON_FRIEND) {
+		$wallpost = $wallpost->where(array('privacy' => 0));
+	    }
+	    return $wallpost;
+	}
+	
+	public function getSingleWallPost($id, $viewer = self::NON_FRIEND) {
+	    $wallpost = $this->connection->table('wall')->find($id);
+	    if($viewer == self::NON_FRIEND) {
+		$wallpost = $wallpost->where(array('privacy' => 0));
+	    }
+	    return $wallpost;
+	}
+	
+	public function addWallPost($id, $content, $privacy = SELF::ALL) {
+	    $wall = $this->connection->table('wall');
+	    return $wall->insert(array(
+		'user_id' => $id,
+		'content' => $content,
+		'privacy' => $privacy,
+		'date' => new \Nette\Database\SqlLiteral('NOW()'),
+	    ));
+	}
+	
+	public function addComment($userId, $wallpostId, $content) {
+	    $comments = $this->connection->table('comments');
+	    return $comments->insert(array(
+		'user_id' => $userId,
+		'wall_id' => $wallpostId,
+		'content' => $content,
+		'date' => new \Nette\Database\SqlLiteral('NOW()'),
+	    ));
 	}
 	
 	/**
@@ -90,4 +138,3 @@ class Users extends Table implements Security\IAuthenticator
 	}
         
 }
-

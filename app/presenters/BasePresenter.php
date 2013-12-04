@@ -12,6 +12,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	    $this->notifications = $notifications;
 	}
 	
+	public function startup() {
+	    parent::startup();
+	    Panel\User::register()
+		    ->addCredentials('user1@user.cz', 'user')
+		    ->addCredentials('user2@user.cz', 'user')
+		    ->addCredentials('user3@user.cz', 'user')
+		    ->addCredentials('user4@user.cz', 'user')
+		    ->addCredentials('user5@user.cz', 'user')
+		    ->addCredentials('user6@user.cz', 'user');
+	}
+	
 	public function beforeRender() {
 	    parent::beforeRender();
 	    if($this->getUser()->isLoggedIn()) {

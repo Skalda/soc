@@ -15,6 +15,7 @@ abstract class Table extends Nette\Object
 {
 	/** @var Nette\Database\Connection */
 	protected $connection;
+	
 
 
 

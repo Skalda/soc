@@ -16,9 +16,9 @@ common:
 			errorPresenter: Error
 
 		database:
-			dsn: 'mysql:host=localhost;dbname=test'
-			user:
-			password:
+			dsn: 'mysql:host=localhost;dbname=czsociocars'
+			user: czsociocars
+			password: dataheslo
 
 		session:
 			expiration: 14 days
@@ -27,6 +27,7 @@ common:
 	services:
 		authenticator: Model\Users
 		notificationsModel: Model\Notifications
+		friendsModel: Model\Friends
 		routerFactory: RouterFactory
 		router: @routerFactory::createRouter
 

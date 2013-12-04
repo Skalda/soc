@@ -18,16 +18,6 @@ class SignUpForm extends Base
 		$this->addPassword('confirm_password', 'Heslo znovu:')
 			->setRequired('Vložte své heslo znovu.')
 			->addRule(self::EQUAL, 'Hesla se neshodují', $this['password']);
-		
-		$this->addText('name', 'Jméno:')
-			->setRequired('Vložte svoje jméno.');
-		$this->addText('surname', 'Příjmení')
-			->setRequired('Vložte svoje příjmení');
-		$this->addRadioList('sex', 'Pohlaví:', array(
-		    'male' => 'Muž',
-		    'female' => 'Žena',
-		));
-		$this->addText('city', 'Město:');
 
 		$this->addSubmit('send', 'Registrovat');
 
