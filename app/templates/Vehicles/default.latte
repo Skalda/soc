@@ -1,0 +1,7 @@
+{block content}
+<h1>Vehicles</h1>
+<p>Vehicles</p>
+<ul n:inner-foreach="$vehicleslist as $v">
+    <li><a n:href="Vehicle:, id=>$v->id">{$v->name}</a></li>
+</ul>
+<p> <a n:href="add">add vehicle</a></p>
