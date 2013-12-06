@@ -27,6 +27,7 @@ common:
 	services:
 		authenticator: Model\Users
 		notificationsModel: Model\Notifications
+		vehiclesModel: Model\Vehicles
 		friendsModel: Model\Friends
 		routerFactory: RouterFactory
 		router: @routerFactory::createRouter
@@ -45,4 +46,4 @@ development < common:
 		database:
 			dsn: 'mysql:host=localhost;dbname=sociocars'
 			user: root
-			password: toor
+			password: 

@@ -56,7 +56,7 @@ class Users extends Table implements Security\IAuthenticator
 	    ));
 	}
 	
-	public function changeProfilPic($id, $pic) {
+	public function changeProfilePic($id, $pic) {
 	    $row = $this->find($id);
 	    return $row->update(array(
 		'profilpic' => $pic,

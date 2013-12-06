@@ -18,6 +18,5 @@ class AddWallPostForm extends Base
 			->setDefaultValue(0);
 
 		$this->addSubmit('send', 'Vložit');
-
 	} 
 }

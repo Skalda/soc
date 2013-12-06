@@ -12,6 +12,5 @@ class AddCommentForm extends Base
 		    ->setRequired('Vložte obsah komentáře.');
 		$this->addHidden('post_id');
 		$this->addSubmit('send', 'Vložit');
-
 	} 
 }

@@ -72,7 +72,7 @@ class SettingsPresenter extends BasePresenter
 	    if($file->isOk()) {
 		$name = $this->getUser()->getId() . '-' . $file->getSanitizedName();
 		$file->move(WWW_DIR.'/data/profil/'.$name);
-		$this->users->changeProfilPic($this->getUser()->getId(), $name);
+		$this->users->changeProfilePic($this->getUser()->getId(), $name);
 		$this->flashMessage('Profilová fotka byla změněna.', 'success');
 		$this->redirect('this');
 	    }

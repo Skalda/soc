@@ -20,6 +20,5 @@ class SignUpForm extends Base
 			->addRule(self::EQUAL, 'Hesla se neshodují', $this['password']);
 
 		$this->addSubmit('send', 'Registrovat');
-
 	} 
 }

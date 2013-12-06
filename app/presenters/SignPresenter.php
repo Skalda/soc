@@ -48,7 +48,7 @@ class SignPresenter extends BasePresenter
 		}
 	}
         
-        public function createComponentSignUpForm() {
+    public function createComponentSignUpForm() {
 		$form = new \Form\SignUpForm();
 		$form->onSuccess[] = $this->signUpFormSucceeded;
 		return $form;
