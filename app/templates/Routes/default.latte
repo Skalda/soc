@@ -1,0 +1,6 @@
+{block content}
+<h1>Routes</h1>
+<p>Routes</p>
+<ul n:inner-foreach="$routeslist as $r">
+    <li><a n:href="Route:, id=>$r->id">{$r->measured}{$r->name}</a></li>
+</ul>

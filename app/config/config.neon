@@ -27,6 +27,7 @@ common:
 	services:
 		authenticator: Model\Users
 		notificationsModel: Model\Notifications
+		routesModel: Model\Routes
 		vehiclesModel: Model\Vehicles
 		friendsModel: Model\Friends
 		routerFactory: RouterFactory
