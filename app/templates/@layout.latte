@@ -38,15 +38,6 @@
     <!-- Fixed navbar -->
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" n:href="Homepage:">Sociocars</a>
-        </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             
@@ -55,6 +46,12 @@
             <li {ifCurrent Notifications:add}class="active"{/ifCurrent}><a n:href="Notifications:add">Notifications creater</a></li>
             <li {ifCurrent Homepage:bootstrap}class="active"{/ifCurrent}><a n:href="Homepage:bootstrap">Bootstrap helper</a></li>
 	  </ul>
+	    {form searchForm class => 'navbar-form navbar-left'}
+	    <div class="form-group">
+		{input search class=>'form-control',  placeholder=>'Search'}
+	    </div>
+	    {input send class=>'btn btn-default'}
+	    {/form}
 	  <ul class="nav navbar-nav navbar-right">
 	    {if !$user->isLoggedIn()}
 	    <li {ifCurrent Sign:in}class="active"{/ifCurrent}><a n:href="Sign:in">Přihlášení</a></li>

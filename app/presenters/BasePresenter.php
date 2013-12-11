@@ -23,6 +23,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		    ->addCredentials('user6@user.cz', 'user');
 	}
 	
+	protected function createComponentSearchForm() {
+	    $form = new \Form\SearchForm();
+	    $form->onSuccess[] = $this->searchFormSucceeded;
+	    return $form;
+	}
+	
+	public function searchFormSucceeded($form) {
+	    $this->redirect('Search:', array('q' => $form->getValues()->search));
+	}
+
+
 	public function beforeRender() {
 	    parent::beforeRender();
 	    if($this->getUser()->isLoggedIn()) {

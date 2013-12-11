@@ -19,17 +19,13 @@ class Users extends Table implements Security\IAuthenticator
 	const ALL = 0,
 		FRIENDS_ONLY = 1;
 	
-	public function addUser($email, $password, $name, $surname, $sex, $city) {
+	public function addUser($email, $password) {
 		$salt = sha1(time().$email."ad~632as@!oa");
 		$password = $this->getPasswordHash($password, $salt);
 			$user = $this->createRow(array(
 			    'email' => $email,
 			    'password' => $password,
 			    'salt' => $salt,
-			    'name' => $name,
-			    'surname' => $surname,
-			    'sex' => $sex,
-			    'city' => $city,
 			));
 			return $user;
 	}
@@ -71,6 +67,16 @@ class Users extends Table implements Security\IAuthenticator
 	    $data = $row->toArray();
 	    unset($data['password'], $data['salt']);
 	    return $data;
+	}
+	
+	public function searchUser($q) {
+	    $words = preg_split("/[\s,]*\\\"([^\\\"]+)\\\"[\s,]*|" . "[\s,]*'([^']+)'[\s,]*|" . "[\s,]+/", $q, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+	    $results = $this->getTable();
+	    foreach($words as $w) {
+		$query = "%".$w."%";
+		$results->where('email LIKE ? OR name LIKE ? OR surname LIKE ?', array($query, $query ,$query));
+	    }
+	    return $results;
 	}
 	
 	public function getUsersWall($id, $viewer = self::NON_FRIEND) {

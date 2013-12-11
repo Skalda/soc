@@ -1,0 +1,18 @@
+
+{block content}
+{if count($results) == 0}
+Žádné výsledky
+{else}
+<ul class="list-group">
+  <li class="list-group-item" n:foreach="$results as $res">
+      
+      <a n:href="User: id=>$res->id">
+      {if $res->profilpic != ""}
+	    <img src="{$basePath}/data/profil/{$res->profilpic}" alt="profil" width="50" height="50">
+	    {else}
+	    <img data-src="{$basePath}/js/holder.js/50x50" alt="profil" width="50" height="50">
+	    {/if}{$res->email}
+      </a>
+  </li>
+</ul>
+{/if}
