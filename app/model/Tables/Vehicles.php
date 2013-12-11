@@ -7,9 +7,10 @@ class Vehicles extends Table
 	/** @var string */
 	protected $tableName = 'vehicles';
 	
-	public function addVehicle($name) {
+	public function addVehicle($id, $name) {
 		$this->createRow(array(
-			'users_id' => $userid,
+			'users_id' => $id,
+			'name' => $name,
 			));
 	}
 
@@ -17,7 +18,7 @@ class Vehicles extends Table
 		$rows = $this->findBy(array('users_id' => $userId))->order('name DESC');
 	    $veh = array();
 	    foreach($rows as $key=>$val) {
-			//$veh[$key]['name'] = $name;
+			$veh[$key]['name'] = $val['name'];
 	    }
 	    
 	    return $veh;

@@ -7,5 +7,5 @@ class AddVehicleForm extends Base
 		$this->addText('name', 'Vehicle name:')
 		    ->setRequired('Insert vehicle name.');
 		$this->addSubmit('send', 'Add');
-	} 
+	}
 }

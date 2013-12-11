@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Homepage presenter.
- */
 class UserPresenter extends BasePresenter
 {
 

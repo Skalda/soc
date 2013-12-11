@@ -13,24 +13,28 @@ class VehiclesPresenter extends BasePresenter
 	{
 	    if(!$this->getUser()->isLoggedIn())
 	    	$this->redirect('Homepage:');
-	    $this->template->vehicleslist = $this->vehicles->getVehicles($this->getUser()->getId());
+	    $this->template->vehicleslist = $this->vehicles->findAll()/*getVehicles($this->getUser()->getId())*/;
 	}
 	
-	public function createComponentAddVehicle() {
-	    //$form = new \Nette\Application\UI\Form();
+	public function createComponentAddVehicleForm() {
+		if(!$this->getUser()->isLoggedIn())
+			return null;
 	    $form = new \Form\AddVehicleForm();
-	    //$form->addText('name', 'Vehicle name:');
-
-	    //$values = $form->getValue('name');
-	    //$form->onSuccess[];
+	    $form->onSuccess[] = $this->addVehicleSucceeded;
+	    return $form;
+	}
+	
+	public function addVehicleSucceeded($form) {
+	    $values = $form->getValues();
+	    
 	    try {
-	    	$this->vehicles->addVehicle($form->getValue('name'));
-	    	$this->flashMessage('Registration suceeded.', 'success');
+	    	$this->vehicles->addVehicle($this->getUser()->getId(), $values->name);
+	    	$this->flashMessage('Vehicle added.', 'success');
 			$this->redirect('Vehicles:');
 	    } catch(\Model\DuplicateEntryException $e) {
 			$form->addError('Vehicle with this name already exists.');
 		}
-	    
+
 	    return $form;
 	}
 }
