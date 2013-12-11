@@ -65,6 +65,36 @@ INSERT INTO `notifications` (`id`, `users_id`, `time`, `link`, `link_params`, `m
 (10,	1,	'2013-12-11 01:08:42',	'',	'{\"id\":5,\"name\":\"stranka\"}',	'j',	'[]',	0),
 (11,	1,	'2013-12-11 01:08:46',	's',	'{\"id\":5,\"name\":\"stranka\"}',	'j',	'[]',	0);
 
+DROP TABLE IF EXISTS `routes`;
+CREATE TABLE `routes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vehicles_id` int(11) DEFAULT NULL,
+  `name` int(11) DEFAULT NULL,
+  `unit_id` int(11) DEFAULT NULL,
+  `secret_key` int(11) DEFAULT NULL,
+  `measured` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `uploaded` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `length` int(11) DEFAULT NULL,
+  `duration` time DEFAULT NULL,
+  `start_pos` point DEFAULT NULL,
+  `end_pos` point DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `vehicles_id` (`vehicles_id`),
+  CONSTRAINT `routes_ibfk_2` FOREIGN KEY (`vehicles_id`) REFERENCES `vehicles` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `routeUser`;
+CREATE TABLE `routeUser` (
+  `routes_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  KEY `routes_id` (`routes_id`),
+  KEY `users_id` (`users_id`),
+  CONSTRAINT `routeUser_ibfk_1` FOREIGN KEY (`routes_id`) REFERENCES `routes` (`id`),
+  CONSTRAINT `routeUser_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -123,6 +153,17 @@ INSERT INTO `vehicles` (`id`, `users_id`, `name`, `profilpic`, `info`, `registra
 (2,	2,	'auto',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL),
 (3,	2,	'sss',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL);
 
+DROP TABLE IF EXISTS `vehicleUser`;
+CREATE TABLE `vehicleUser` (
+  `vehicles_id` int(11) NOT NULL,
+  `users_id` int(11) NOT NULL,
+  KEY `vehicles_id` (`vehicles_id`),
+  KEY `users_id` (`users_id`),
+  CONSTRAINT `vehicleUser_ibfk_1` FOREIGN KEY (`vehicles_id`) REFERENCES `vehicles` (`id`),
+  CONSTRAINT `vehicleUser_ibfk_2` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `wall`;
 CREATE TABLE `wall` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -142,4 +183,4 @@ INSERT INTO `wall` (`id`, `user_id`, `date`, `content`, `privacy`) VALUES
 (4,	2,	'2013-12-11 00:18:40',	'c',	1),
 (5,	2,	'2013-12-11 00:18:45',	'c',	0);
 
--- 2013-12-11 04:20:05
+-- 2013-12-11 11:41:25
