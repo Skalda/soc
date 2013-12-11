@@ -13,7 +13,7 @@ class Routes extends Table
 			));
 	}*/
 
-	public function getRoutesByVehicle($vehicleId){
+	/*public function getRoutesByVehicle($vehicleId){
 		$rows = $this->findBy(array('vehicles_id' => $vehicleId))->order('measured DESC');
 	    $rou = array();
 	    foreach($rows as $key=>$val) {
@@ -33,7 +33,7 @@ class Routes extends Table
 	    }
 	    
 	    return $rou;
-	}
+	}*/
 
 	public function modifyRoute($id, $users_id, $vehicles_id, $name, $measured) {
 		$row = $this->find($id);
