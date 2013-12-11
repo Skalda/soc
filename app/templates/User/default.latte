@@ -21,7 +21,9 @@
 			<div class="date" style="text-align: right; font-style: italic; font-size: 90%;">{$comment->date|date:'d.m.Y'}</div>
 		    </li>
 	    {/foreach}
+		    {if $viewer != 0}
 		<li class="list-group-item">{control addCommentForm-$post->id}</li>
+		{/if}
 		</ul>
 	    </li>
 	</ul>
