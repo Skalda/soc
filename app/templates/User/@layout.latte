@@ -3,7 +3,7 @@
 <div class="col-sm-3">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">{$userinfo['name']} {$userinfo['surname']}</h3>
+              <h3 class="panel-title">{$userinfo['email']}</h3>
             </div>
             <div class="panel-body">
               {if $userinfo['profilpic'] != ""}
@@ -12,8 +12,8 @@
 		<img data-src="{$basePath}/js/holder.js/150x150" alt="profil" width="150" height="150">
 		{/if}
 	    <br>
-	    
-	     {if $userinfo['sex'] == 'male'}Muž{elseif $userinfo['sex'] == 'female'}Žena{/if}<br>
+	    Jméno: {$userinfo['name']} {$userinfo['surname']}<br>
+	    Pohlaví: {if $userinfo['sex'] == 'male'}Muž{elseif $userinfo['sex'] == 'female'}Žena{/if}<br>
 	    Město: {$userinfo['city']}<br>
             </div>
           </div>

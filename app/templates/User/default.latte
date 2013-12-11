@@ -4,17 +4,35 @@
 {/if}
 {foreach $wallposts as $post}
 <div class="row">
-    <h4>{$post->date|date:'d.m.Y'}</h4>
-    <p>{!$post->content|escape|nl2br}</p>
-    <div class="comments">
-	<h4>Komentáře</h4>
-	{foreach $post->related('comments')->order('date') as $comment}
+    <div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-heading">{$post->date|date:'d.m.Y'}</div>
+	<div class="panel-body">
+	  {!$post->content|escape|nl2br}
+	</div>
+
+	<!-- List group -->
+	<ul class="list-group">
+	    <li class="list-group-item">
+		<ul class="list-group">
+	    {foreach $post->related('comments')->order('date') as $comment}
+		    <li class="list-group-item">
+			<div class="comment"><strong><a n:href="User: id=>$comment->user->id">{$comment->user->email}</a></strong>: {$comment->content}</div>
+			<div class="date" style="text-align: right; font-style: italic; font-size: 90%;">{$comment->date|date:'d.m.Y'}</div>
+		    </li>
+	    {/foreach}
+		    {if $viewer != 0}
+		<li class="list-group-item">{control addCommentForm-$post->id}</li>
+		{/if}
+		</ul>
+	    </li>
+	</ul>
+      </div>
+    {*<div class="comments">
+	
 		<h5>{$comment->user->email} - {$comment->date|date:'d.m.Y'}</h5>
-		<p>{$comment->content}</p>
-	{/foreach}
 	{if $viewer != 0}
-	{control addCommentForm-$post->id}
-	{/if}
-</div>
+	
+	{/if}*}
 </div>
 {/foreach}

@@ -58,7 +58,7 @@ class SignPresenter extends BasePresenter
 		$values = $form->getValues();
 		
 		try {
-			$this->users->addUser($values->email, $values->password, $values->name, $values->surname, $values->sex, $values->city);
+			$this->users->addUser($values->email, $values->password);
 			$this->flashMessage('Registrace proběhla úspěšně.', 'success');
 			$this->redirect('Homepage:');
 		} catch(\Model\DuplicateEntryException $e) {
