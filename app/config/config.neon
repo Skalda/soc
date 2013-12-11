@@ -47,4 +47,4 @@ development < common:
 		database:
 			dsn: 'mysql:host=localhost;dbname=sociocars'
 			user: root
-			password: toor
+			password:

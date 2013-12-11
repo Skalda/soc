@@ -13,6 +13,6 @@ class RoutesPresenter extends BasePresenter
 	{
 	    if(!$this->getUser()->isLoggedIn())
 	    	$this->redirect('Homepage:');
-	    $this->template->routeslist = $this->routes->findAll()/*getRoutes($this->getUser()->getId())*/;
+	    $this->template->routeslist = $this->routes->getRoutesByUser($this->getUser()->getId());
 	}
 }
