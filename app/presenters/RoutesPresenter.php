@@ -5,7 +5,7 @@ class RoutesPresenter extends BasePresenter
 	/** @var Model\Routes */
 	public $routes;
 	
-	public function injectVehicles(Model\Routes $routes) {
+	public function injectRoutes(Model\Routes $routes) {
 	    $this->routes = $routes;
 	}
 	
@@ -13,6 +13,6 @@ class RoutesPresenter extends BasePresenter
 	{
 	    if(!$this->getUser()->isLoggedIn())
 	    	$this->redirect('Homepage:');
-	    $this->template->routeslist = $this->routes->getRoutesByUser($this->getUser()->getId());
+	    $this->template->routeslist = $this->routes->findAll()/*getRoutesByUser($this->getUser()->getId())*/;
 	}
 }

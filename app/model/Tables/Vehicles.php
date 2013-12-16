@@ -16,12 +16,8 @@ class Vehicles extends Table
 
 	public function getVehicles($userId){
 		$rows = $this->findBy(array('users_id' => $userId))->order('name DESC');
-	    $veh = array();
-	    foreach($rows as $key=>$val) {
-			$veh[$key]['name'] = $val['name'];
-	    }
 	    
-	    return $veh;
+	    return $rows;
 	}
 
 	public function modifyVehicle($id, $info, $registration_number, $brand, $model, $production_year, $color,
