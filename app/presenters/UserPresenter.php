@@ -7,6 +7,8 @@ class UserPresenter extends BasePresenter
 	public $users;
 	/** @var \Model\Friends */
 	public $friends;
+	/** @var \Model\Vehicles */
+	public $vehicles;
 	
 	/** @var \Nette\Database\Table\Selection */
 	public $userId;
@@ -17,6 +19,10 @@ class UserPresenter extends BasePresenter
 	
 	public function injectFriends(\Model\Friends $friends) {
 		$this->friends = $friends;
+	}
+
+	public function injectVehicles(\Model\Vehicles $vehicles) {
+		$this->vehicles = $vehicles;
 	}
 	
 	public function beforeRender() {
@@ -37,9 +43,9 @@ class UserPresenter extends BasePresenter
 		$viewer = Model\Users::NON_FRIEND;
 		if($this->getUser()->isLoggedIn()) {
 		    if($this->userId == $this->getUser()->getId()) {
-			$viewer = Model\Users::AUTHOR;
+				$viewer = Model\Users::AUTHOR;
 		    } elseif($this->friends->getFriendState($this->userId, $this->getUser()->getId()) == \Model\Friends::ACCEPTED) {
-			$viewer = Model\Users::FRIEND;
+				$viewer = Model\Users::FRIEND;
 		    }
 		}
 		$this->template->viewer = $viewer;
@@ -78,13 +84,13 @@ class UserPresenter extends BasePresenter
 	
 	public function addCommentFormSucceeded($form) {
 	    if(!$this->getUser()->isLoggedIn()) {
-		$this->redirect('this');
+			$this->redirect('this');
 	    }
 	    $values = $form->getValues();
 	    $this->users->addComment($this->getUser()->getId(), $values->post_id, $values->content);
 	    $this->flashMessage('Komentář byl úspěšně přidán.', 'success');
 	    if($this->getUser()->getId() != $this->userId) {
-		$this->notifications->addNotification($this->userId, 'User:default', array('id'=>$this->userId), 'Uživatel {person} okomentoval váš post', array($this->getUser()->getId()));
+			$this->notifications->addNotification($this->userId, 'User:default', array('id'=>$this->userId), 'Uživatel {person} okomentoval váš post', array($this->getUser()->getId()));
 	    }
 	    $this->redirect('this');
 	}
@@ -99,6 +105,20 @@ class UserPresenter extends BasePresenter
 		    $this->redirect('Homepage:');
 		$this->template->userinfo = $user;
 		$this->template->friends = $this->friends->getUsersFriends($this->userId);
+		$this->template->vehicles = $this->vehicles->getUsersVehicles($this->userId);
+	}
+
+	public function actionVehicles($id) {
+		$this->userId = $id;
+	}
+
+	public function renderVehicles($id) {
+		$user = $this->users->getUser($this->userId);
+		if(count($user) == 0) 
+		    $this->redirect('Homepage:');
+		$this->template->userinfo = $user;
+		$this->template->friends = $this->friends->getUsersFriends($this->userId);
+		$this->template->vehicles = $this->vehicles->getUsersVehicles($this->userId);
 	}
 	
 	public function createComponentAddFriendsButton() {

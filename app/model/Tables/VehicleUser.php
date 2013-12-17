@@ -27,24 +27,4 @@ class VehicleUser extends Table
 
 	public function getUsers($vehicle) {
 	}
-	
-	/*public function getUsersFriends($id) {
-	    $table = $this->getTable();
-	    $res = $table->where('vehicle = ? OR user = ?', array($id, $id));
-	    $friends = array();
-	    foreach($res as $val) {
-		$friends[] = ($val['vehicle'] == $id)?$val['user']:$val['vehicle'];
-	    }
-	    return $this->connection->table('users')->where('id', $friends);
-	}
-	
-	private function getBothWays($vehicle, $user) {
-	    $table = $this->getTable();
-	    return $table->where('(vehicle = ? AND user = ?) OR (user = ? AND vehicle = ?)', array($vehicle, $user, $vehicle, $user));
-	}
-	
-	private function getOneWay($vehicle, $user) {
-	    $table = $this->getTable();
-	    return $table->where('(vehicle = ? AND user = ?)', array($vehicle, $user));
-	}
-}*/
+}

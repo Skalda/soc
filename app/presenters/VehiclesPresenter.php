@@ -13,7 +13,7 @@ class VehiclesPresenter extends BasePresenter
 	{
 	    if(!$this->getUser()->isLoggedIn())
 	    	$this->redirect('Homepage:');
-	    $this->template->vehicleslist = $this->vehicles->getVehicles($this->getUser()->getId());
+	    $this->template->vehicleslist = $this->vehicles->getUsersVehicles($this->getUser()->getId());
 	}
 
 	public function renderShowSingle($id){

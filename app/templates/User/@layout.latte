@@ -23,7 +23,7 @@
 	<ul class="nav nav-tabs navbar-left">
 	    <li{ifCurrent User:default} class="active"{/ifCurrent}><a n:href="default, id=>$userId">Zeď</a></li>
 	    <li{ifCurrent User:friends} class="active"{/ifCurrent}><a n:href="friends, id=>$userId">Přátelé</a></li>
-	    <li{ifCurrent User:friends} class="active"{/ifCurrent}><a n:href="vehicles, id=>$userId">Vehicles</a></li>
+	    <li{ifCurrent User:vehicles} class="active"{/ifCurrent}><a n:href="vehicles, id=>$userId">Vozidla</a></li>
 	</ul>
 	<ul class="nav navbar-nav navbar-right">
 	    {if $user->isLoggedIn()}

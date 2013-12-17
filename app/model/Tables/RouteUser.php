@@ -17,35 +17,15 @@ class RouteUser extends Table
 	    //vytvorit hlasku ze systemu, ze byla pridana trasa
 	}
 	
-	public function removeRouteUser($route, $user) {
+	public function removeRoutesUser($route, $user) {
 		//overit, zda neni poslednim
 	    $data = $this->getBothWays($route, $user);
 	    $data->delete();
 	}
 
-	public function getRoutes($user) {
+	public function getUsersRoutes($user) {
 	}
 
-	public function getUsers($route) {
+	public function getRoutesUsers($route) {
 	}
-	
-	/*public function getUsersFriends($id) {
-	    $table = $this->getTable();
-	    $res = $table->where('route = ? OR user = ?', array($id, $id));
-	    $friends = array();
-	    foreach($res as $val) {
-		$friends[] = ($val['route'] == $id)?$val['user']:$val['route'];
-	    }
-	    return $this->connection->table('users')->where('id', $friends);
-	}
-	
-	private function getBothWays($route, $user) {
-	    $table = $this->getTable();
-	    return $table->where('(route = ? AND user = ?) OR (user = ? AND route = ?)', array($route, $user, $route, $user));
-	}
-	
-	private function getOneWay($route, $user) {
-	    $table = $this->getTable();
-	    return $table->where('(route = ? AND user = ?)', array($route, $user));
-	}
-}*/
+}
