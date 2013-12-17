@@ -1,7 +1,15 @@
 {block content}
-<h1>Vehicles</h1>
-<p>Vehicles</p>
+<h1>Vozidla</h1>
 <ul n:inner-foreach="$vehicleslist as $v">
-    <li><a n:href="Vehicle:, id=>$v->id">{$v->name}</a></li>
+    <li><a n:href="Vehicles:showSingle, id=>$v->id">{$v->name}</a></li>
 </ul>
-<p> <a n:href="add">add vehicle</a></p>
+<div class="row">
+  <div class="col-md-3">
+      <ul class="nav nav-pills nav-stacked">
+	  <li {ifCurrent passwordChange}class="active"{/ifCurrent}><a n:href="add">Přidat vozidlo</a></li>
+      </ul>
+  </div>
+  <div class="col-md-9">
+      {block con}{/block}
+  </div>
+</div>

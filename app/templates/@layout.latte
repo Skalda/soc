@@ -42,15 +42,14 @@
           <ul class="nav navbar-nav">
             
             <li {ifCurrent Homepage:}class="active"{/ifCurrent}><a n:href="Homepage:">Domů</a></li>
-            <li {ifCurrent Vehicles:}class="active"{/ifCurrent}><a n:href="Vehicles:">Vehicles</a></li>
-            <li {ifCurrent Feed:}class="active"{/ifCurrent}><a n:href="Feed:">Feed</a></li>
-            <li {ifCurrent Group:*}class="active"{/ifCurrent}><a n:href="Group:">Skupiny</a></li>
-            {*<li {ifCurrent Notifications:add}class="active"{/ifCurrent}><a n:href="Notifications:add">Notifications creater</a></li>
-            <li {ifCurrent Homepage:bootstrap}class="active"{/ifCurrent}><a n:href="Homepage:bootstrap">Bootstrap helper</a></li>*}
+            <li {ifCurrent Routes:}class="active"{/ifCurrent}><a n:href="Routes:">Trasy</a></li>
+            <!--<li {ifCurrent Vehicles:}class="active"{/ifCurrent}><a n:href="Vehicles:">Vehicles</a></li>
+            <li {ifCurrent Notifications:add}class="active"{/ifCurrent}><a n:href="Notifications:add">Notifications creater</a></li>
+            <li {ifCurrent Homepage:bootstrap}class="active"{/ifCurrent}><a n:href="Homepage:bootstrap">Bootstrap helper</a></li>-->
 	  </ul>
 	    {form searchForm class => 'navbar-form navbar-left'}
 	    <div class="form-group">
-		{input search class=>'form-control',  placeholder=>'Search'}
+		{input search class=>'form-control',  placeholder=>'Hledaný výraz'}
 	    </div>
 	    {input send class=>'btn btn-default'}
 	    {/form}
@@ -64,6 +63,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Přihlášen: {$user->getIdentity()->email} <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a n:href="Settings:">Nastavení</a></li>
+                <li><a n:href="Vehicles:">Vozidla</a></li>
                 <li><a n:href="Sign:out">Odhlásit</a></li>
               </ul>
             </li>

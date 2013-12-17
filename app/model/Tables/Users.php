@@ -62,7 +62,7 @@ class Users extends Table implements Security\IAuthenticator
 	public function getUser($id) {
 	    $row = $this->find($id);
 	    if(!$row) {
-		return null;
+			return null;
 	    }
 	    $data = $row->toArray();
 	    unset($data['password'], $data['salt']);
@@ -73,8 +73,8 @@ class Users extends Table implements Security\IAuthenticator
 	    $words = preg_split("/[\s,]*\\\"([^\\\"]+)\\\"[\s,]*|" . "[\s,]*'([^']+)'[\s,]*|" . "[\s,]+/", $q, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 	    $results = $this->getTable();
 	    foreach($words as $w) {
-		$query = "%".$w."%";
-		$results->where('email LIKE ? OR name LIKE ? OR surname LIKE ?', array($query, $query ,$query));
+			$query = "%".$w."%";
+			$results->where('email LIKE ? OR name LIKE ? OR surname LIKE ?', array($query, $query ,$query));
 	    }
 	    return $results;
 	}
@@ -83,7 +83,7 @@ class Users extends Table implements Security\IAuthenticator
 	    $user = $this->find($id);
 	    $wallpost = $user->related('wall')->order('date DESC');
 	    if($viewer == self::NON_FRIEND) {
-		$wallpost = $wallpost->where(array('privacy' => 0));
+			$wallpost = $wallpost->where(array('privacy' => 0));
 	    }
 	    return $wallpost;
 	}
@@ -95,7 +95,7 @@ class Users extends Table implements Security\IAuthenticator
 	public function getSingleWallPost($id, $viewer = self::NON_FRIEND) {
 	    $wallpost = $this->connection->table('wall')->find($id);
 	    if($viewer == self::NON_FRIEND) {
-		$wallpost = $wallpost->where(array('privacy' => 0));
+			$wallpost = $wallpost->where(array('privacy' => 0));
 	    }
 	    return $wallpost;
 	}
@@ -103,10 +103,10 @@ class Users extends Table implements Security\IAuthenticator
 	public function addWallPost($id, $content, $privacy = SELF::ALL) {
 	    $wall = $this->connection->table('wall');
 	    return $wall->insert(array(
-		'user_id' => $id,
-		'content' => $content,
-		'privacy' => $privacy,
-		'date' => new \Nette\Database\SqlLiteral('NOW()'),
+			'user_id' => $id,
+			'content' => $content,
+			'privacy' => $privacy,
+			'date' => new \Nette\Database\SqlLiteral('NOW()'),
 	    ));
 	}
 	

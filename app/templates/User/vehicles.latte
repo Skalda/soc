@@ -1,0 +1,13 @@
+{block cont}
+{foreach $vehicles as $vehicle}
+{first 4}<div class="row">{/first}
+<div class="col-md-2">
+    {if $vehicle['profilpic'] != ""}
+    <img src="{$basePath}/data/profil/{$vehicle['profilpic']}" alt="profil" width="140" height="140">
+    {else}
+    <img data-src="{$basePath}/js/holder.js/140x140" alt="profil" width="140" height="140">
+    {/if}
+    {$vehicle->name}
+</div>
+{last 4}</div>{/last}
+{/foreach}
