@@ -1,0 +1,44 @@
+{layout '../@layout.latte'}
+{block content}
+<div class="col-sm-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">{$group->name}</h3>
+            </div>
+            <div class="panel-body">
+		Autor: <a n:href="User: id=>$group->user->id">{$group->user->email}</a><br>
+		Popis: {$group->desc}<br>
+		{if $user->getId() == $group->user->id}
+		<button type="button" class="btn btn-md btn-default"><a n:href="modifyGroup id=>$group->id">Upravit skupinu</a></button>
+		{/if}
+            </div>
+          </div>
+        </div>
+<div class="col-sm-9">
+    <div class="navbar">
+	<ul class="nav nav-tabs navbar-left">
+	    <li{ifCurrent Group:show} class="active"{/ifCurrent}><a n:href="show id=>$groupId">Zeď</a></li>
+	    <li{ifCurrent Group:members} class="active"{/ifCurrent}><a n:href="members id=>$groupId">Členové</a></li>
+
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+	    {if $user->isLoggedIn()}
+		{if $member}
+		    <div class="dropdown">
+		    <button class="btn dropdown-toggle btn-lg btn-link" type="button" id="dropdownMenu1" data-toggle="dropdown">
+		      Jste členem
+		      <span class="caret"></span>
+		    </button>
+		    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+		      <li><a n:href="removeMember!">Zrušit členství</a></li>
+		    </ul>
+		  </div>
+		{else}
+		    <li><button type="button" class="btn btn-lg btn-link"><a n:href="becomeMember!">Přidání se do skupiny</a></button></li>
+		{/if}
+	    {/if}
+	</ul>
+    </div>
+    {block cont}{/block}
+</div>
+{/block}

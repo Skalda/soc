@@ -29,6 +29,7 @@ common:
 		notificationsModel: Model\Notifications
 		vehiclesModel: Model\Vehicles
 		friendsModel: Model\Friends
+		groupsModel: Model\Groups
 		routerFactory: RouterFactory
 		router: @routerFactory::createRouter
 

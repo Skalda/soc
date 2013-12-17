@@ -41,7 +41,7 @@ class SignPresenter extends BasePresenter
 			if($this->getUser()->getIdentity()->filled_data == 0) {
 			    $this->flashMessage('Vyplňte si prosím informace o sobě v nastavení svého profilu.', 'info');
 			}
-			$this->redirect('Homepage:');
+			$this->redirect('Feed:');
 
 		} catch (Nette\Security\AuthenticationException $e) {
 			$form->addError($e->getMessage());
