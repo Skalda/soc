@@ -12,7 +12,7 @@ class ImageUploadForm extends Base
 			->setRequired('Musíte vybrat soubor')
 			->addRule(self::IMAGE, 'Soubor musí být obrázek');
 		
-		$this->addSubmit('send', 'Uložit.');
+		$this->addSubmit('send', 'Uložit');
 
 	} 
 }

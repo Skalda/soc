@@ -11,7 +11,7 @@ class EditInfoForm extends Base
 		$this->addText('name', 'Jméno:')
 		    ->setRequired('Vložte svoje jméno.');
 		$this->addText('surname', 'Příjmení:')
-			->setRequired('Vložte svoje příjmení');
+			->setRequired('Vložte svoje příjmení.');
 		$this->addRadioList('sex', 'Pohlaví:', array(
 		    'male' => 'Muž',
 		    'female' => 'Žena',
