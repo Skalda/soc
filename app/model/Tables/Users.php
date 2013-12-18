@@ -88,6 +88,10 @@ class Users extends Table implements Security\IAuthenticator
 	    return $wallpost;
 	}
 	
+	public function getFriendsWallPosts($friends) {
+	    return $this->connection->table('wall')->where('user_id', $friends)->order('date DESC');
+	}
+	
 	public function getSingleWallPost($id, $viewer = self::NON_FRIEND) {
 	    $wallpost = $this->connection->table('wall')->find($id);
 	    if($viewer == self::NON_FRIEND) {

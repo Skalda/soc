@@ -1,0 +1,13 @@
+{layout '../@layout.latte'}
+{block content}
+<h1>Výsledky vyhledávání</h1>
+<div class="navbar">
+	<ul class="nav nav-tabs navbar-left">
+	    <li{ifCurrent users} class="active"{/ifCurrent}><a n:href="users, q=>$q">Lidé</a></li>
+	    <li{ifCurrent groups} class="active"{/ifCurrent}><a n:href="groups, q=>$q">Skupiny</a></li>
+
+	</ul>
+    </div>
+    {block cont}{/block}
+</div>
+{/block}

@@ -1,0 +1,14 @@
+
+{block cont}
+{if count($results) == 0}
+Žádné výsledky
+{else}
+<ul class="list-group">
+  <li class="list-group-item" n:foreach="$results as $res">
+      
+      <a n:href="Group:show id=>$res->id">
+      {$res->name}
+      </a>
+  </li>
+</ul>
+{/if}
