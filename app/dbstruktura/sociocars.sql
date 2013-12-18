@@ -78,11 +78,9 @@ CREATE TABLE `routes` (
   `name` int(11) DEFAULT NULL,
   `unit_id` int(11) DEFAULT NULL,
   `secret_key` int(11) DEFAULT NULL,
-  `measured` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `length` int(11) DEFAULT NULL,
+  `start_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `duration` time DEFAULT NULL,
-  `start_pos` point DEFAULT NULL,
-  `end_pos` point DEFAULT NULL,
+  `length` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `vehicles_id` (`vehicles_id`),
   KEY `users_id` (`users_id`),
@@ -149,4 +147,4 @@ CREATE TABLE `wall` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2013-12-18 07:57:13
+-- 2013-12-18 11:57:11
