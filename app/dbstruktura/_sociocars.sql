@@ -178,6 +178,23 @@ CREATE TABLE `vehicles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `vehicles`;
+CREATE TABLE `vehicles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `profilpic` varchar(255) DEFAULT NULL,
+  `info` longtext,
+  `registration_number` varchar(7) DEFAULT NULL,
+  `type` enum('car','motorcycle','quad','tricycle','scooter','motor bike','other') NOT NULL,
+  `mileage` int(11) NOT NULL DEFAULT '0',
+  `status` enum('ready','in use','not ready') NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `users_id` (`users_id`),
+  CONSTRAINT `vehicles_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `wall`;
 CREATE TABLE `wall` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
