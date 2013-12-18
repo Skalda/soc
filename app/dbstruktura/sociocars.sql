@@ -73,7 +73,7 @@ CREATE TABLE `notifications` (
 DROP TABLE IF EXISTS `routes`;
 CREATE TABLE `routes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `vehicles_id` int(11) NOT NULL,
+  `vehicles_id` int(11) DEFAULT NULL,
   `users_id` int(11) NOT NULL,
   `name` int(11) DEFAULT NULL,
   `unit_id` int(11) DEFAULT NULL,
@@ -147,4 +147,4 @@ CREATE TABLE `wall` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2013-12-18 11:57:11
+-- 2013-12-18 12:01:59

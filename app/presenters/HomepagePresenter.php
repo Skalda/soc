@@ -48,8 +48,8 @@ class HomepagePresenter extends BasePresenter
         }    
     ]
 }*/
-		//$input = file_get_contents('php://input');
 		$input = $_GET["route"];
+		//$input = file_get_contents('php://input');//jina moznost z jine stranky
 		$route = json_decode($input);
 		$unit_id = $route -> {"unit_id"};
 		$secret_key = $route -> {"secret_key"};
