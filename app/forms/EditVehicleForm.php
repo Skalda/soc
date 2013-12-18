@@ -9,6 +9,7 @@ class EditVehicleForm extends Base
 			->setRequired('Vložte název vozidla.');
 		$this->addText('info', 'Info:');
 		$this->addText('registration_number', 'Registrační číslo:')
+			->addCondition(self::FILLED)
 			->addRule(self::LENGTH, 'Registrační číslo musí mít délku 7 znaků.', 7);
 		$this->addRadioList('type', 'Typ:', array(
 		    'car' => 'Auto',
