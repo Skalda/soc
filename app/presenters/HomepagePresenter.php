@@ -15,8 +15,7 @@ class HomepagePresenter extends BasePresenter
 	}
 
 	public function handleJson() {
-		/*
-		{ 
+		/*{ 
     "unit_id": 12345,
     "secret_key": "sdfadfsa6as987654754",
     "entries": [
@@ -49,17 +48,29 @@ class HomepagePresenter extends BasePresenter
         }    
     ]
 }*/
-		//$input = file_get_contents('php://input');
 		$input = $_GET["route"];
+		//$input = file_get_contents('php://input');//jina moznost z jine stranky
 		$route = json_decode($input);
 		$unit_id = $route -> {"unit_id"};
 		$secret_key = $route -> {"secret_key"};
 		$entries = $route -> {"entries"};
-
+		$rou = $this->routes->addRoute($this->getUser()->getId, $unit_id, $secret_key);
 		foreach ($entries as $entry) {
-			
+			$location = $entry -> {"location"};
+            $timestamp = $entry -> {"timestamp"};
+            $event = $entry -> {"event"};
+            $user_id = $entry -> {"user_id"};
+            $odometer = $entry -> {"odometer"};
+            $velocity = $entry -> {"velocity"};
+            $consumption = $entry -> {"consumption"};
+            $fuel_remaining = $entry -> {"fuel_remaining"};
+            $altitude = $entry -> {"altitude"};
+            $engine_temp = $entry -> {"engine_temp"};
+            $engine_rpm = $entry -> {"engine_rpm"};
+            $throttle = $entry -> {"throttle"};
+            $entry = $this->entries->addEntry($rou->id, $location, $timestamp, $event, $user_id, $odometer, $velocity, $consumption, $fuel_remaining, $altitude, $engine_temp, $engine_rpm, $throttle);
 		}
-		
+		$this->routes->initRoute($rou->id, $entries[count($entries)-1]->timestamp - $entries[0]->timestamp, $entries[count($entries)-1]->odometer - $entries[0]->odometer);
 		if (json_last_error()) {
 		 	$output = array("status" => "error", "message" => "Invalid request format (detailed description)." );
 		} else $output = array("status" => "ok");

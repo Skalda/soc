@@ -20,6 +20,28 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `entries`;
+CREATE TABLE `entries` (
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `routes_id` int(11) NOT NULL,
+  `location` point NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `event` varchar(255) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `odometer` double NOT NULL,
+  `velocity` double NOT NULL,
+  `consumption` double NOT NULL,
+  `fuel_remaining` double NOT NULL,
+  `altitude` double NOT NULL,
+  `engine_temp` double NOT NULL,
+  `engine_rpm` double NOT NULL,
+  `throttle` double NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `routes_id` (`routes_id`),
+  CONSTRAINT `entries_ibfk_1` FOREIGN KEY (`routes_id`) REFERENCES `routes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `friends`;
 CREATE TABLE `friends` (
   `from` int(11) NOT NULL,
@@ -56,12 +78,9 @@ CREATE TABLE `routes` (
   `name` int(11) DEFAULT NULL,
   `unit_id` int(11) DEFAULT NULL,
   `secret_key` int(11) DEFAULT NULL,
-  `measured` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `uploaded` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `length` int(11) DEFAULT NULL,
+  `start_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `duration` time DEFAULT NULL,
-  `start_pos` point DEFAULT NULL,
-  `end_pos` point DEFAULT NULL,
+  `length` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `vehicles_id` (`vehicles_id`),
   KEY `users_id` (`users_id`),
@@ -142,6 +161,23 @@ CREATE TABLE `vehicleUser` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `vehicles`;
+CREATE TABLE `vehicles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `users_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `profilpic` varchar(255) DEFAULT NULL,
+  `info` longtext,
+  `registration_number` varchar(7) DEFAULT NULL,
+  `type` enum('car','motorcycle','quad','tricycle','scooter','motor bike','other') NOT NULL,
+  `mileage` int(11) NOT NULL DEFAULT '0',
+  `status` enum('ready','in use','not ready') NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `users_id` (`users_id`),
+  CONSTRAINT `vehicles_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `wall`;
 CREATE TABLE `wall` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -161,4 +197,4 @@ INSERT INTO `wall` (`id`, `user_id`, `date`, `content`, `privacy`) VALUES
 (4,	2,	'2013-12-11 00:18:40',	'c',	1),
 (5,	2,	'2013-12-11 00:18:45',	'c',	0);
 
--- 2013-12-18 04:18:20
+-- 2013-12-18 11:57:11

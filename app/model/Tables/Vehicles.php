@@ -40,6 +40,12 @@ class Vehicles extends Table
 		));
 	}
 
+	public function changeOwner($id, $userId) {
+		return $this->find($id)->update(array(
+			'users_id' => $userId,
+		));
+	}
+
 	public function getVehicle($id) {
 		$row = $this->find($id);
 		if(!$row) {
