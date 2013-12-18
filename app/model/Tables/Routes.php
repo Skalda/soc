@@ -6,9 +6,18 @@ class Routes extends Table
 {
 	protected $tableName = 'routes';
 	
-	public function addRoute() {
-		$this->createRow(array(
-			
+	public function addRoute($userId, $unit_id, $secret_key) {
+		return $this->createRow(array(
+			'users_id' => $userId,
+			'unit_id' => $unit_id,
+			'secret_key' => $secret_key,
+		));
+	}
+
+	public function initRoute($id, $duration, $length) {
+		$row = $this->find($id)->update(array(
+			'duration' => $duration,
+			'length' => $length,
 		));
 	}
 
@@ -20,13 +29,12 @@ class Routes extends Table
 		return $this->findBy(array('users_id' => $userId))->order('timestamp ASC');
 	}
 
-	public function modifyRoute($id, $users_id, $vehicles_id, $name, $measured) {
+	public function modifyRoute($id, $users_id, $vehicles_id, $name) {
 		$row = $this->find($id);
 		return $row->update(array(
 			'users_id' => $users_id,
 			'vehicles_id' => $vehicles_id,
 			'name' => $name,
-			'measured' => $measured,
 			));
 	}
 
