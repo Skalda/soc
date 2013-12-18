@@ -2,7 +2,7 @@
 {block content}
 <h1>Skupiny</h1>
 {if $user->isLoggedIn()}
-<button type="button" class="btn btn-md btn-default"><a n:href="addGroup">Vytvořit skupinu</a></button>
+<a n:href="addGroup"><button type="button" class="btn btn-md btn-default">Vytvořit skupinu</button></a>
 {/if}
 <ul n:inner-foreach="$groupslist as $g">
     <li><a n:href="Group:show, id=>$g->id">{$g->name}</a></li>

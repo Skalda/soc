@@ -18,7 +18,7 @@ class PasswordChangeForm extends Base
 			->setRequired('Vložte své nové heslo znovu.')
 			->addRule(self::EQUAL, 'Hesla se neshodují', $this['password']);
 		
-		$this->addSubmit('send', 'Změnit heslo.');
+		$this->addSubmit('send', 'Změnit heslo');
 
 	} 
 }

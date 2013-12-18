@@ -110,28 +110,4 @@ abstract class Table extends Nette\Object
 	}
 
 
-
-	/**
-	 * Insert row in database or update existing one.
-	 *
-	 * @param  array
-	 * @return \Nette\Database\Table\ActiveRow automatically found based on first "column => value" pair in $values
-	 */
-	public function createOrUpdate(array $values)
-	{
-		$pairs = array();
-		foreach ($values as $key => $value) {
-			$pairs[] = "`$key` = ?"; // warning: SQL injection possible if $values infected!
-		}
-
-		$pairs = implode(', ', $pairs);
-		$values = array_values($values);
-
-		$this->connection->queryArgs(
-			'INSERT INTO `' . $this->tableName . '` SET ' . $pairs .
-			' ON DUPLICATE KEY UPDATE ' . $pairs, array_merge($values, $values)
-		);
-
-		return $this->findOneBy(func_get_arg(0));
-	}
 }

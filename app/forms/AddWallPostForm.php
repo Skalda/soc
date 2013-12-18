@@ -9,7 +9,7 @@ class AddWallPostForm extends Base
 	
 	protected function buildForm() {
 		$this->addTextArea('content', NULL, 100, 5)
-		    ->setRequired('Vložte obsah postu.');
+		    ->setRequired('Vložte obsah příspěvku.');
 		$this->addSelect('privacy', 'Zobrazit:')
 			->setItems(array(
 			    0 => 'Všem',

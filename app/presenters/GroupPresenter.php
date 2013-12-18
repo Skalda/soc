@@ -49,6 +49,7 @@ class GroupPresenter extends BasePresenter
 	public function createComponentModifyGroupForm() {
 	    $form = new Form\AddGroupForm();
 	    $form->addHidden('id');
+	    $form['send']->caption = "Upravit";
 	    $form->onSuccess[] = $this->modifyGroupFormSucceeded;
 	    return $form;
 	}

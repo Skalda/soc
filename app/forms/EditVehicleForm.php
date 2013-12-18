@@ -1,8 +1,9 @@
 <?php
 namespace Form;
 
-class AddVehicleForm extends Base
+class EditVehicleForm extends Base
 {
+	
 	protected function buildForm() {
 		$this->addText('name', 'Název:')
 			->setRequired('Vložte název vozidla.');
@@ -17,15 +18,13 @@ class AddVehicleForm extends Base
 		    'tricycle' => 'Trojkolka',
 		    'scooter' => 'Skůtr',
 		    'motor bike' => 'Motorové kolo',
-		))
-		->setRequired('Vyberte typ vozidla.');;
+		));
 		$this->addRadioList('status', 'Stav:', array(
 		    'ready' => 'Připraveno',
 		    'in use' => 'Právě používáno',
 		    'not ready' => 'Nepřipraveno',
-		))
-		->setRequired('Vyberte stav vozidla.');;;
+		));
 
-		$this->addSubmit('send', 'Přidat');
-	}
+		$this->addSubmit('send', 'Změnit údaje');
+	} 
 }

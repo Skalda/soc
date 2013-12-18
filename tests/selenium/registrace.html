@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/sociocars/www" />
+<title>registrace</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">registrace</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/sociocars/www/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Registrace</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignUpForm-email</td>
+	<td>javascript{&quot;joe+&quot; + Math.floor(Math.random()*11111) + &quot;@gmail.com&quot;;}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignUpForm-password</td>
+	<td>user</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignUpForm-confirm_password</td>
+	<td>user</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=frmsignUpForm-send</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.alert.alert-success</td>
+	<td>Registrace proběhla úspěšně.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Registrace</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignUpForm-email</td>
+	<td>user1@user.cz</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignUpForm-password</td>
+	<td>user</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignUpForm-confirm_password</td>
+	<td>user</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=frmsignUpForm-send</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=ul.error &gt; li</td>
+	<td>Uživatel se stejným emailem již existuje.</td>
+</tr>
+</tbody></table>
+</body>
+</html>

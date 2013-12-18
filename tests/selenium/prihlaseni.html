@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost/sociocars/www" />
+<title>prihlaseni</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">prihlaseni</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/sociocars/www/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Přihlášení</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignInForm-email</td>
+	<td>user1@user.cz</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignInForm-password</td>
+	<td>user</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=frmsignInForm-send</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.alert.alert-success</td>
+	<td>Byl jste úspěšně přihlášen.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Přihlášen: user1@user.cz</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Odhlásit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignInForm-email</td>
+	<td>uasj@iasdas.asd</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignInForm-password</td>
+	<td>trqwe</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=frmsignInForm-send</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=ul.error &gt; li</td>
+	<td>Uživatelské jméno neexistuje.</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignInForm-email</td>
+	<td>user1@user.cz</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=frmsignInForm-password</td>
+	<td>usa</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=frmsignInForm-send</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=ul.error &gt; li</td>
+	<td>Heslo není správné.</td>
+</tr>
+</tbody></table>
+</body>
+</html>

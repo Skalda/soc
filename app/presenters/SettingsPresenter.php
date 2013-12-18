@@ -70,15 +70,12 @@ class SettingsPresenter extends BasePresenter
 	    $values = $form->getValues();
 	    $file = $values->image;
 	    if($file->isOk()) {
-		$name = $this->getUser()->getId() . '-' . $file->getSanitizedName();
-		$file->move(WWW_DIR.'/data/profil/'.$name);
-		$this->users->changeProfilePic($this->getUser()->getId(), $name);
-		$this->flashMessage('Profilová fotka byla změněna.', 'success');
-		$this->redirect('this');
+			$name = $this->getUser()->getId() . '-' . $file->getSanitizedName();
+			$file->move(WWW_DIR.'/data/profil/'.$name);
+			$this->users->changeProfilePic($this->getUser()->getId(), $name);
+			$this->flashMessage('Profilová fotka byla změněna.', 'success');
+			$this->redirect('this');
 	    }
-	    $form->addError('Při uploadu nastala chyba, zkuste to prosím znova později.');
-	    
+	    $form->addError('Při uploadu nastala chyba, zkuste to prosím znova později.');   
 	}
-	
-
 }

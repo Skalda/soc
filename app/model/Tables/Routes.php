@@ -4,36 +4,21 @@ namespace Model;
 
 class Routes extends Table
 {
-	/** @var string */
 	protected $tableName = 'routes';
 	
-	/*public function addRoute($id, $name) {//nacist route z JSON
+	public function addRoute() {
 		$this->createRow(array(
 			
-			));
-	}*/
-
-	/*public function getRoutesByVehicle($vehicleId){
-		$rows = $this->findBy(array('vehicles_id' => $vehicleId))->order('measured DESC');
-	    $rou = array();
-	    foreach($rows as $key=>$val) {
-	    	$rou[$key]['measured'] = $val['measured'];
-			$rou[$key]['name'] = $val['name'];
-	    }
-	    
-	    return $rou;
+		));
 	}
 
-	public function getRoutesByUser($userId){
-		$rows = $this->findBy(array('users_id' => $userId))->order('measured DESC');
-	    $rou = array();
-	    foreach($rows as $key=>$val) {
-	    	$rou[$key]['measured'] = $val['measured'];
-			$rou[$key]['name'] = $val['name'];
-	    }
-	    
-	    return $rou;
-	}*/
+	public function getVehiclesRoutes($vehicleId){
+		return $this->findBy(array('vehicles_id' => $vehicleId))->order('timestamp ASC');
+	}
+
+	public function getUsersRoutes($userId){
+		return $this->findBy(array('users_id' => $userId))->order('timestamp ASC');
+	}
 
 	public function modifyRoute($id, $users_id, $vehicles_id, $name, $measured) {
 		$row = $this->find($id);
@@ -51,5 +36,9 @@ class Routes extends Table
 			return null;
 		}
 		return $data = $row->toArray();
+	}
+
+	public function showRoute($id) {
+		//zobrazit route na mape
 	}
 }
