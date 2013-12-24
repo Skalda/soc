@@ -23,14 +23,19 @@ class VehiclePresenter extends BasePresenter
 	
 	public function renderDefault($id)
 	{
-		$vehicle = $this->vehicles->getVehicle($this->vehicleId);
+		$vehicle = $this->vehicles->getVehicle($id);
 		if(count($vehicle) == 0) 
 		    $this->redirect('Homepage:');
 		$this->template->vehicleinfo = $vehicle;
 	}
 
-	public function renderVehicleInfo() {
-	    $this['editVehicleForm']->setDefaults($this->vehicleId);
+	public function actionEditVehicle($id) {
+		$this->vehicleId = $id;
+	}
+
+	public function renderEditVehicle($id) {
+		$vehicle = $this->vehicles->getVehicle($id);
+	    $this['editVehicleForm']->setDefaults($vehicle);
 	}
 	
 	public function createComponentEditVehicleForm() {
@@ -43,11 +48,15 @@ class VehiclePresenter extends BasePresenter
 	    $values = $form->getValues();
 	    $this->vehicles->modifyVehicle($this->vehicleId, $values->name, $values->info, $values->registration_number, $values->type, $values->status);
 	    $this->flashMessage('Udaje byly změněny', 'success');
-	    $this->redirect('default');
+	    $this->redirect('this');
 	}
 
-	public function renderVehiclePic() {
-	    $vehicle = $this->vehicles->getVehicle($this->vehicleId);
+	public function actionVehiclePic($id) {
+		$this->vehicleId = $id;
+	}
+
+	public function renderVehiclePic($id) {
+	    $vehicle = $this->vehicles->getVehicle($id);
 	    $this->template->profilPic = $vehicle['profilpic'];
 	}
 
