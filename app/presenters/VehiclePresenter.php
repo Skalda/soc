@@ -91,21 +91,25 @@ class VehiclePresenter extends BasePresenter
 	}
 
 	public function renderOwnerChange($id) {
-		$this->template->friends = $this->friends->getUsersFriends($this->getUser()->getId());
-		$friends = $this->friends->getUsersFriends($this->getUser()->getId());
-	    $this['ownerChangeForm']->setDefaults($friends);
+		/*$this->template->friends = $this->friends->getUsersFriends($this->getUser()->getId());
+		$friends = $this->friends->getUsersFriends($this->getUser()->getId());*/
+	    //$this['ownerChangeForm']->getValues()->owner = $this->friends->getUsersFriends($this->getUser()->getId());
+	    //$form->getValues()->owner = $this->friends->getUsersFriends($this->getUser()->getId());
 	}
 	
 	public function createComponentOwnerChangeForm() {
 	    $form = new Form\OwnerChangeForm();
+	    $friends = $this->friends->getUsersFriends($this->getUser()->getId())->fetchPairs('id', 'name');
+	    $form->addSelect('owner', 'Majitel:', $friends)->setPrompt('Zvolte nového majitele');
+	    $form->addSubmit('send', 'Změnit majitele');
 	    $form->onSuccess[] = $this->ownerChangeFormSucceeded;
 	    return $form;
 	}
 	
 	public function ownerChangeFormSucceeded($form) {
 	    $values = $form->getValues();
-	    $this->vehicles->modifyVehicle($this->vehicleId, $values->owner);
+	    $this->vehicles->changeOwner($this->vehicleId, $values->owner);
 	    $this->flashMessage('Vozidlo bylo přeneseno k jinému uživateli.', 'success');
-	    $this->redirect('this');
+	    $this->redirect('Vehicles:');
 	}
 }
