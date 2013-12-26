@@ -47,7 +47,7 @@ class VehiclePresenter extends BasePresenter
 	public function editVehicleFormSucceeded($form) {
 	    $values = $form->getValues();
 	    $this->vehicles->modifyVehicle($this->vehicleId, $values->name, $values->info, $values->registration_number, $values->type, $values->status);
-	    $this->flashMessage('Udaje byly změněny', 'success');
+	    $this->flashMessage('Údaje byly změněny.', 'success');
 	    $this->redirect('this');
 	}
 
@@ -71,11 +71,33 @@ class VehiclePresenter extends BasePresenter
 	    $file = $values->image;
 	    if($file->isOk()) {
 			$name = $this->vehicleId . '-' . $file->getSanitizedName();
-			$file->move(WWW_DIR.'/data/profil/'.$name);
+			$file->move(WWW_DIR.'/data/profil2/'.$name);
 			$this->vehicles->changeVehiclePic($this->vehicleId, $name);
 			$this->flashMessage('Fotka vozidla byla změněna.', 'success');
 			$this->redirect('this');
 	    }
 	    $form->addError('Při uploadu nastala chyba, zkuste to prosím znova později.');
+	}
+
+	public function actionChangeOwner($id) {
+		$this->vehicleId = $id;
+	}
+
+	public function renderChangeOwner($id) {
+		$vehicle = $this->vehicles->getVehicle($id);
+	    $this['changeOwnerForm']->setDefaults($vehicle);
+	}
+	
+	public function createComponentChangeOwnerForm() {
+	    $form = new Form\ChangeOwnerForm();
+	    $form->onSuccess[] = $this->changeOwnerFormSucceeded;
+	    return $form;
+	}
+	
+	public function changeOwnerFormSucceeded($form) {
+	    $values = $form->getValues();
+	    $this->vehicles->modifyVehicle($this->vehicleId, idNovehoUsera);
+	    $this->flashMessage('Vozidlo bylo přeneseno k jinému uživateli.', 'success');
+	    $this->redirect('this');
 	}
 }
