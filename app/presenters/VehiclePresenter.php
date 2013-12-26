@@ -4,12 +4,19 @@ class VehiclePresenter extends BasePresenter
 {
 	/** @var \Model\Vehicles */
 	public $vehicles;
-	
+
+	/** @var \Model\Friends */
+	public $friends;
+
 	/** @var \Nette\Database\Table\Selection */
 	public $vehicleId;
 
 	public function injectVehicles(\Model\Vehicles $vehicles) {
 		$this->vehicles = $vehicles;
+	}
+
+	public function injectFriends(\Model\Friends $friends) {
+		$this->friends = $friends;
 	}
 	
 	public function beforeRender() {
@@ -79,24 +86,25 @@ class VehiclePresenter extends BasePresenter
 	    $form->addError('Při uploadu nastala chyba, zkuste to prosím znova později.');
 	}
 
-	public function actionChangeOwner($id) {
+	public function actionOwnerChange($id) {
 		$this->vehicleId = $id;
 	}
 
-	public function renderChangeOwner($id) {
-		$vehicle = $this->vehicles->getVehicle($id);
-	    $this['changeOwnerForm']->setDefaults($vehicle);
+	public function renderOwnerChange($id) {
+		$this->template->friends = $this->friends->getUsersFriends($this->getUser()->getId());
+		$friends = $this->friends->getUsersFriends($this->getUser()->getId());
+	    $this['ownerChangeForm']->setDefaults($friends);
 	}
 	
-	public function createComponentChangeOwnerForm() {
-	    $form = new Form\ChangeOwnerForm();
-	    $form->onSuccess[] = $this->changeOwnerFormSucceeded;
+	public function createComponentOwnerChangeForm() {
+	    $form = new Form\OwnerChangeForm();
+	    $form->onSuccess[] = $this->ownerChangeFormSucceeded;
 	    return $form;
 	}
 	
-	public function changeOwnerFormSucceeded($form) {
+	public function ownerChangeFormSucceeded($form) {
 	    $values = $form->getValues();
-	    $this->vehicles->modifyVehicle($this->vehicleId, idNovehoUsera);
+	    $this->vehicles->modifyVehicle($this->vehicleId, $values->owner);
 	    $this->flashMessage('Vozidlo bylo přeneseno k jinému uživateli.', 'success');
 	    $this->redirect('this');
 	}
