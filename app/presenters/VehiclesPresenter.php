@@ -16,10 +16,6 @@ class VehiclesPresenter extends BasePresenter
 	    $this->template->vehicleslist = $this->vehicles->getUsersVehicles($this->getUser()->getId());
 	}
 
-	/*public function renderShowSingle($id){
-		
-	}*/
-	
 	public function createComponentAddVehicleForm() {
 		if(!$this->getUser()->isLoggedIn())
 			return null;

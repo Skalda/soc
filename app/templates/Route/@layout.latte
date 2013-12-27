@@ -1,0 +1,29 @@
+{layout '../@layout.latte'}
+{block content}
+<div class="col-sm-3">
+	<div class="panel panel-default">
+    	<div class="panel-heading">
+        	<h3 class="panel-title">{$routeinfo['name']}</h3>
+        </div>
+        <div class="panel-body">
+			Čas: {$routeinfo['start_time']}<br>
+			Trvání: {$routeinfo['duration']->format('H:i:s')}<br>
+			Délka: {$routeinfo['length']}<br>
+			Vozidlo: {$vehiclename}<br>
+			Nahrál: {$usermail}<br>
+			{if $user->getId() == $routeinfo['users_id']}
+			<button type="button" class="btn btn-md btn-default"><a n:href="modifyRoute id=>$routeId">Upravit trasu</a></button>
+			{/if}
+        </div>
+    </div>
+</div>
+<div class="col-sm-9">
+	<div class="navbar">
+		<ul class="nav nav-tabs navbar-left">
+	    	<li{ifCurrent Route:default} class="active"{/ifCurrent}><a n:href="default id=>$routeId">Mapa</a></li>
+	    	<li{ifCurrent Route:sharers} class="active"{/ifCurrent}><a n:href="sharers id=>$routeId">Sdíleno s</a></li>
+		</ul>
+    </div>
+    {block cont}{/block}
+</div>
+{/block}

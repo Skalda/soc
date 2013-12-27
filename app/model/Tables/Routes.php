@@ -20,6 +20,7 @@ class Routes extends Table
 			'duration' => $duration,
 			'length' => $length,
 		));
+		$this->connection->table('vehicles')->where('unit_id', $row->unit_id)->mileage += $length;
 	}
 
 	public function getVehiclesRoutes($vehicleId){
@@ -27,18 +28,33 @@ class Routes extends Table
 	}
 
 	public function getUsersRoutes($userId){
-		return $this->findBy(array('users_id' => $userId))->order('start_time ASC');
+		$routeUsers = $this->connection->table('routeUsers')->where('users_id', $userId);
+	    $helper = array();
+	    foreach($routeUsers as $row) $helper[] = $row['routes_id'];
+	    $results1 = iterator_to_array($this->getTable()->where('id', $helper));
+	    $results2 = iterator_to_array($this->getTable()->where('users_id', $userId));
+	    return array_unique(array_merge($results1, $results2));
 	}
 
 	public function modifyRoute($id, $name, $vehicles_id, $sharers) {
-		$row = $this->find($id);
-		$row->update(array(
+		$row = $this->find($id)->update(array(
 			'name' => $name,
 			'vehicles_id' => $vehicles_id,
 		));
-		$this->connection->table('routeUsers')->where('routes_id = ?', $id)->delete();
-		foreach($sharers as $sharer) $this->connection->table('routeUsers')->addRouteUser($id, $sharer);
+		$this->connection->table('routeUsers')->where('routes_id', $id)->delete();
+		foreach($sharers as $sharer) $this->connection->table('routeUsers')->insert(array(
+			'routes_id' => $id,
+			'users_id' => $sharer,
+	    ));
 		return $row;
+	}
+
+	public function getPath($id){
+		$path = 'http://maps.googleapis.com/maps/api/staticmap?size=800x450&sensor=false&path=';
+		$entries = $this->connection->table('entries')->select("*, x(location) AS xlocation, y(location) AS ylocation")->where('routes_id', $id);
+		foreach($entries as $entry) $path .= $entry->xlocation . ',' . $entry->ylocation . '|';
+		$path = substr("$path", 0, -1);
+		return $path;
 	}
 
 	public function getRoute($id) {

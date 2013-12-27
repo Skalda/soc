@@ -1,0 +1,15 @@
+{block cont}
+{foreach $sharers as $sharer}
+{first 4}<div class="row">{/first}
+<div class="col-md-2">
+    <a n:href="User:, id=>$sharer->id">
+    {if $sharer['profilpic'] != ""}
+    	<img src="{$basePath}/data/profil/{$sharer['profilpic']}" alt="profil" width="140" height="140">
+    {else}
+    	<img src="{$basePath}/data/missing_screen.png" width="140" height="140">
+    {/if}
+    {$sharer->email}
+    </a>
+</div>
+{last 4}</div>{/last}
+{/foreach}

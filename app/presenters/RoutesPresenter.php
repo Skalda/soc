@@ -56,16 +56,16 @@ class RoutesPresenter extends BasePresenter
 		$secret_key = $route -> {"secret_key"};
 		$entries = $route -> {"entries"};
 		$user_id = $entries[0] -> {"user_id"};
-		$users = $this->users->findAll()->where('user_id LIKE ?', $user_id);
+		$users = $this->users->findAll()->where('user_id', $user_id);
 		if(count($users) == 0) {
 			echo json_encode(array("status" => "error", "message" => "User with requested user_id doesn't exist."));
 			return;
 		}
-		foreach($users as $user) $vehicles.add(getUsersVehicles($user->id)->where('unit_id LIKE ?', $unit_id));
+		foreach($users as $user) $vehicles[] = getUsersVehicles($user->id)->where('unit_id', $unit_id);
 	    if(count($vehicles) == 0) {
 			echo json_encode(array("status" => "error", "message" => "Vehicle with requested unit_id doesn't exist."));
 			return;
-		}else foreach($vehicles as $vehicle) $newRoutes.add($this->routes->addRoute($vehicle->id, $vehicle->users_id, $unit_id, $secret_key));
+		}else foreach($vehicles as $vehicle) $newRoutes[] = $this->routes->addRoute($vehicle->id, $vehicle->users_id, $unit_id, $secret_key);
 		foreach ($entries as $entry) {
 			$location = $entry -> {"location"};
             $timestamp = $entry -> {"timestamp"};

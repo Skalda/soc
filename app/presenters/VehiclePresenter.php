@@ -55,7 +55,7 @@ class VehiclePresenter extends BasePresenter
 	    $values = $form->getValues();
 	    $this->vehicles->modifyVehicle($this->vehicleId, $values->unit_id, $values->name, $values->info, $values->registration_number, $values->type, $values->status);
 	    $this->flashMessage('Údaje byly změněny.', 'success');
-	    $this->redirect('this');
+	    $this->redirect('default', array('id'=>$this->vehicleId));
 	}
 
 	public function actionVehiclePic($id) {
