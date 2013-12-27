@@ -6,8 +6,9 @@ class Routes extends Table
 {
 	protected $tableName = 'routes';
 	
-	public function addRoute($userId, $unit_id, $secret_key) {
+	public function addRoute($vehicleId, $userId, $unit_id, $secret_key) {
 		return $this->createRow(array(
+			'vehicles_id' => $vehicleId,
 			'users_id' => $userId,
 			'unit_id' => $unit_id,
 			'secret_key' => $secret_key,
@@ -22,20 +23,22 @@ class Routes extends Table
 	}
 
 	public function getVehiclesRoutes($vehicleId){
-		return $this->findBy(array('vehicles_id' => $vehicleId))->order('timestamp ASC');
+		return $this->findBy(array('vehicles_id' => $vehicleId))->order('start_time ASC');
 	}
 
 	public function getUsersRoutes($userId){
-		return $this->findBy(array('users_id' => $userId))->order('timestamp ASC');
+		return $this->findBy(array('users_id' => $userId))->order('start_time ASC');
 	}
 
-	public function modifyRoute($id, $users_id, $vehicles_id, $name) {
+	public function modifyRoute($id, $name, $vehicles_id, $sharers) {
 		$row = $this->find($id);
-		return $row->update(array(
-			'users_id' => $users_id,
-			'vehicles_id' => $vehicles_id,
+		$row->update(array(
 			'name' => $name,
-			));
+			'vehicles_id' => $vehicles_id,
+		));
+		$this->connection->table('routeUsers')->where('routes_id = ?', $id)->delete();
+		foreach($sharers as $sharer) $this->connection->table('routeUsers')->addRouteUser($id, $sharer);
+		return $row;
 	}
 
 	public function getRoute($id) {
@@ -43,10 +46,6 @@ class Routes extends Table
 		if(!$row) {
 			return null;
 		}
-		return $data = $row->toArray();
-	}
-
-	public function showRoute($id) {
-		//zobrazit route na mape
+		return $row->toArray();
 	}
 }

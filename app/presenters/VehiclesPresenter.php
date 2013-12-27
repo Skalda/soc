@@ -32,7 +32,7 @@ class VehiclesPresenter extends BasePresenter
 	    $values = $form->getValues();
 	    
 	    try {
-	    	$this->vehicles->addVehicle($this->getUser()->getId(), $values->name, $values->info, $values->registration_number, $values->type, $values->status);
+	    	$this->vehicles->addVehicle($this->getUser()->getId(), $values->unit_id, $values->name, $values->info, $values->registration_number, $values->type, $values->status);
 	    	$this->flashMessage('Vehicle added.', 'success');
 			$this->redirect('Vehicles:');
 	    } catch(\Model\DuplicateEntryException $e) {

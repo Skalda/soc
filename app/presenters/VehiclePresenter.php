@@ -53,7 +53,7 @@ class VehiclePresenter extends BasePresenter
 	
 	public function editVehicleFormSucceeded($form) {
 	    $values = $form->getValues();
-	    $this->vehicles->modifyVehicle($this->vehicleId, $values->name, $values->info, $values->registration_number, $values->type, $values->status);
+	    $this->vehicles->modifyVehicle($this->vehicleId, $values->unit_id, $values->name, $values->info, $values->registration_number, $values->type, $values->status);
 	    $this->flashMessage('Údaje byly změněny.', 'success');
 	    $this->redirect('this');
 	}
@@ -99,7 +99,7 @@ class VehiclePresenter extends BasePresenter
 	
 	public function createComponentOwnerChangeForm() {
 	    $form = new Form\OwnerChangeForm();
-	    $friends = $this->friends->getUsersFriends($this->getUser()->getId())->fetchPairs('id', 'name');
+	    $friends = $this->friends->getUsersFriends($this->getUser()->getId())->fetchPairs('id', 'email');
 	    $form->addSelect('owner', 'Majitel:', $friends)->setPrompt('Zvolte nového majitele');
 	    $form->addSubmit('send', 'Změnit majitele');
 	    $form->onSuccess[] = $this->ownerChangeFormSucceeded;

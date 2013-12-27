@@ -7,12 +7,13 @@ class Vehicles extends Table
 	/** @var string */
 	protected $tableName = 'vehicles';
 	
-	public function addVehicle($id, $name, $info, $registration_number, $type, $status) {
+	public function addVehicle($id, $unit_id, $name, $info, $registration_number, $type, $status) {
 		$this->createRow(array(
 			'users_id' => $id,
 			'name' => $name,
 			'info' => $info,
 			'registration_number' => $registration_number,
+			'unit_id' => $unit_id,
 			'type' => $type,
 			'status' => $status,
 		));
@@ -22,12 +23,13 @@ class Vehicles extends Table
 		return $this->findBy(array('users_id' => $userId))->order('name DESC');
 	}
 
-	public function modifyVehicle($id, $name, $info, $registration_number, $type, $status) {
+	public function modifyVehicle($id, $unit_id, $name, $info, $registration_number, $type, $status) {
 		$row = $this->find($id);
 		return $row->update(array(
 			'name' => $name,
 			'info' => $info,
 			'registration_number' => $registration_number,
+			'unit_id' => $unit_id,
 			'type' => $type,
 			'status' => $status,
 		));

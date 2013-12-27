@@ -50,7 +50,7 @@ class SettingsPresenter extends BasePresenter
 	
 	public function editInfoFormSucceeded($form) {
 	    $values = $form->getValues();
-	    $this->users->modifyUser($this->getUser()->getId(), $values->name, $values->surname, $values->sex, $values->city);
+	    $this->users->modifyUser($this->getUser()->getId(), $values->user_id, $values->name, $values->surname, $values->sex, $values->city);
 	    $this->flashMessage('Udaje byly změněny', 'success');
 	    $this->redirect('default');
 	}

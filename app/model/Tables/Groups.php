@@ -33,8 +33,8 @@ class Groups extends Table
 	    $words = preg_split("/[\s,]*\\\"([^\\\"]+)\\\"[\s,]*|" . "[\s,]*'([^']+)'[\s,]*|" . "[\s,]+/", $q, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 	    $results = $this->getTable();
 	    foreach($words as $w) {
-		$query = "%".$w."%";
-		$results->where('name LIKE ? OR desc LIKE ?', array($query, $query));
+			$query = "%".$w."%";
+			$results->where('name LIKE ? OR desc LIKE ?', array($query, $query));
 	    }
 	    return $results;
 	}

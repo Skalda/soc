@@ -28,6 +28,7 @@ common:
 		authenticator: Model\Users
 		notificationsModel: Model\Notifications
 		routesModel: Model\Routes
+		routeUsersModel: Model\RouteUsers
 		vehiclesModel: Model\Vehicles
 		friendsModel: Model\Friends
 		groupsModel: Model\Groups

@@ -41,14 +41,15 @@ class Users extends Table implements Security\IAuthenticator
 		));
 	}
 	
-	public function modifyUser($id, $name, $surname, $sex, $city) {
+	public function modifyUser($id, $user_id, $name, $surname, $sex, $city) {
 	    $row = $this->find($id);
 	    return $row->update(array(
-		'name' => $name,
-		'surname' => $surname,
-		'sex' => $sex,
-		'city' => $city,
-		'filled_data' => 1
+	    	'user_id' => $user_id,
+			'name' => $name,
+			'surname' => $surname,
+			'sex' => $sex,
+			'city' => $city,
+			'filled_data' => 1
 	    ));
 	}
 	

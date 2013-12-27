@@ -11,7 +11,6 @@ class SearchForm extends Base
 		$this->addText('search', 'Search:')
 			->setRequired('Vložte hledaný výraz.');
 
-		
 		$this->addSubmit('send', 'Hledat');
 	} 
 }

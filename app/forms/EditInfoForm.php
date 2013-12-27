@@ -17,6 +17,7 @@ class EditInfoForm extends Base
 		    'female' => 'Žena',
 		));
 		$this->addText('city', 'Město:');
+		$this->addText('user_id', 'User_id:');
 
 		$this->addSubmit('send', 'Změnit údaje');
 
