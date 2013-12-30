@@ -17,3 +17,7 @@ http://sociocars.php5.cz/www/
 ---
 
 - [Závěrečná zpráva](https://www.dropbox.com/s/viqie8m15yl3kds/zaverecna-zprava.pdf)
+
+---
+
+- [Kompletní dokumentace](https://www.dropbox.com/s/2ybqo7u5ksbbot8/komplet.pdf)
