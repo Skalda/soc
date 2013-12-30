@@ -13,5 +13,7 @@ http://sociocars.php5.cz/www/
 - [Testování](https://www.dropbox.com/s/z8f150y9g6t3vzz/testovani.pdf)
 - [Uživatelská dokumentace](https://www.dropbox.com/s/9bfg2virlcelirt/manual.pdf)
 - [Instalační dokumentace](https://www.dropbox.com/s/0mrxykb1u4rwwq1/instalacnidokumentace.pdf)
+
 ---
+
 - [Závěrečná zpráva](https://www.dropbox.com/s/viqie8m15yl3kds/zaverecna-zprava.pdf)
