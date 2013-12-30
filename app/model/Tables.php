@@ -93,7 +93,7 @@ abstract class Table extends Nette\Object
 	 *
 	 * @param  array row values
 	 * @return \Nette\Database\Table\ActiveRow created row
-	 * @throws \NetteAddons\DuplicateEntryException
+	 * @throws \Model\DuplicateEntryException
 	 * @throws \PDOException in case of SQL / database error
 	 */
 	protected function createRow(array $values)

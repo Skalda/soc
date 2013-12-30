@@ -221,7 +221,7 @@ class User extends Control implements IBarPanel
 
 			$this->redirect('this');
 		} catch (AuthenticationException $e) {
-			Environment::getApplication()->presenter->flashMessage($e->getMessage(), 'error');
+			Environment::getApplication()->presenter->flashMessage($e->getMessage(), 'danger');
 			$this->redirect('this');
 		}
 	}

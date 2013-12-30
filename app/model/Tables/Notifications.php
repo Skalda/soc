@@ -19,6 +19,17 @@ class Notifications extends Table
 	    ),
 	);
 	
+	/**
+	 * Creates new notification
+	 * 
+	 * @param id $userid id of user who is going to receive the notification
+	 * @param string $link destination
+	 * @param array $link_params parameters of destination
+	 * @param string $message message of notification
+	 * @param array $attr attributes of notification
+	 * @throws NotEqualCountException thrown when number of placeholders in message is not same as number of attributes
+	 * @return \Nette\Database\Table\ActiveRow created row
+	 */
 	public function addNotification($userid, $link, $link_params, $message, $attr = array()) {
 	    $keys = array_keys(self::$usableLinks);
 	    foreach($keys as $key=>$val) {
@@ -28,7 +39,7 @@ class Notifications extends Table
 	    $res = \Nette\Utils\Strings::matchAll($message, '~'.$regexp.'~');
 	    if(count($res) != count($attr))
 		throw new NotEqualCountException('Ve zprávě musí být stejný počet holderů jako je atributů');
-	    $this->createRow(array(
+	    return $this->createRow(array(
 		'users_id' => $userid,
 		'time' => new \Nette\Database\SqlLiteral("NOW()"),
 		'link' => $link,
@@ -38,6 +49,12 @@ class Notifications extends Table
 	    ));
 	}
         
+	/**
+	 * Returns user's notifications
+	 * 
+	 * @param type $userId id of user
+	 * @return \Nette\Database\Table\Selection Notifications
+	 */
 	public function getNotifications($userId){
 	    $rows = $this->findBy(array('users_id' => $userId))->order('time DESC');
 	    $not = array();
@@ -56,11 +73,24 @@ class Notifications extends Table
 	    return $not;
 	}
 	
+	/** 
+	 * Returns count of user's unseen notification 
+	 * 
+	 * @param type $userId id of user
+	 * @return int Count of user's unseen notification 
+	 */
 	public function getUnseenNotificationsCount($userId) {
 	    return $this->findBy(array('users_id' => $userId, 'seen' => 0))->count();
 	}
 	
-	public function replaceHolder($message, $attr) {
+	/**
+	 * Replaces placeholders in message with informations from database
+	 * 
+	 * @param string $message message of notification
+	 * @param array $attr attributes of notification
+	 * @return string final message
+	 */
+	private function replaceHolder($message, $attr) {
 	    $keys = array_keys(self::$usableLinks);
 	    foreach($keys as $key=>$val) {
 		$keys[$key] = "\{" . $val . "\}";

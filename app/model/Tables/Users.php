@@ -19,6 +19,14 @@ class Users extends Table implements Security\IAuthenticator
 	const ALL = 0,
 		FRIENDS_ONLY = 1;
 	
+	/**
+	 * Creates new user
+	 * 
+	 * @param string $email email
+	 * @param string $password password
+	 * @throws \Model\DuplicateEntryException
+	 * @return \Nette\Database\Table\ActiveRow created row
+	 */
 	public function addUser($email, $password) {
 		$salt = sha1(time().$email."ad~632as@!oa");
 		$password = $this->getPasswordHash($password, $salt);
@@ -30,6 +38,15 @@ class Users extends Table implements Security\IAuthenticator
 			return $user;
 	}
 	
+	/**
+	 * Changes user's password
+	 * 
+	 * @param int $id id of user
+	 * @param string $oldPassword old password
+	 * @param string $newPassword new password
+	 * @return \Nette\Database\Table\ActiveRow updated row
+	 * @throws WrongPasswordException
+	 */
 	public function changePassword($id, $oldPassword, $newPassword) {
 		$row = $this->find($id);
 		if($row->password !== $this->getPasswordHash($oldPassword, $row->salt)) {
@@ -41,10 +58,19 @@ class Users extends Table implements Security\IAuthenticator
 		));
 	}
 	
-	public function modifyUser($id, $user_id, $name, $surname, $sex, $city) {
+	/**
+	 * Changes user's detail
+	 * 
+	 * @param int $id id of user
+	 * @param string $name name
+	 * @param string $surname surname
+	 * @param string(male|female) $sex sex
+	 * @param city $city city
+	 * @return \Nette\Database\Table\ActiveRow updated row
+	 */
+	public function modifyUser($id, $name, $surname, $sex, $city) {
 	    $row = $this->find($id);
 	    return $row->update(array(
-	    	'user_id' => $user_id,
 			'name' => $name,
 			'surname' => $surname,
 			'sex' => $sex,
@@ -53,6 +79,13 @@ class Users extends Table implements Security\IAuthenticator
 	    ));
 	}
 	
+	/**
+	 * Changes user's profile picture
+	 * 
+	 * @param int $id id of user
+	 * @param string $pic profile picture filename
+	 * @return \Nette\Database\Table\ActiveRow updated row
+	 */
 	public function changeProfilePic($id, $pic) {
 	    $row = $this->find($id);
 	    return $row->update(array(
@@ -60,6 +93,12 @@ class Users extends Table implements Security\IAuthenticator
 	    ));
 	}
 	
+	/**
+	 * Gets info about user
+	 * 
+	 * @param type $id id of user
+	 * @return array User's info
+	 */
 	public function getUser($id) {
 	    $row = $this->find($id);
 	    if(!$row) {
@@ -70,6 +109,12 @@ class Users extends Table implements Security\IAuthenticator
 	    return $data;
 	}
 	
+	/**
+	 * Finds all user which contains words in $q
+	 * 
+	 * @param string $q search query 
+	 * @return \Nette\Database\Table\Selection Found users
+	 */
 	public function searchUser($q) {
 	    $words = preg_split("/[\s,]*\\\"([^\\\"]+)\\\"[\s,]*|" . "[\s,]*'([^']+)'[\s,]*|" . "[\s,]+/", $q, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 	    $results = $this->getTable();
@@ -80,6 +125,13 @@ class Users extends Table implements Security\IAuthenticator
 	    return $results;
 	}
 	
+	/**
+	 * Gets user's wallposts
+	 * 
+	 * @param int $id id of user
+	 * @param int $viewer viewer's friend status
+	 * @return \Nette\Database\Table\Selection User's wallposts
+	 */
 	public function getUsersWall($id, $viewer = self::NON_FRIEND) {
 	    $user = $this->find($id);
 	    $wallpost = $user->related('wall')->order('date DESC');
@@ -89,10 +141,23 @@ class Users extends Table implements Security\IAuthenticator
 	    return $wallpost;
 	}
 	
+	/**
+	 * Gets wallposts of user's friends
+	 * 
+	 * @param array $friends array of user's friends ids
+	 * @return \Nette\Database\Table\Selection Friends wallposts
+	 */
 	public function getFriendsWallPosts($friends) {
 	    return $this->connection->table('wall')->where('user_id', $friends)->order('date DESC');
 	}
 	
+	/**
+	 * Gets single wallpost
+	 * 
+	 * @param int $id id of wallpost
+	 * @param int $viewer viewer's friend status
+	 * @return \Nette\Database\Table\ActiveRow Wallpost
+	 */
 	public function getSingleWallPost($id, $viewer = self::NON_FRIEND) {
 	    $wallpost = $this->connection->table('wall')->find($id);
 	    if($viewer == self::NON_FRIEND) {
@@ -101,6 +166,14 @@ class Users extends Table implements Security\IAuthenticator
 	    return $wallpost;
 	}
 	
+	/**
+	 * Adds wallpost to user's wall
+	 * 
+	 * @param int $id id of user
+	 * @param string $content content of wallpost
+	 * @param int $privacy privacy settings
+	 * @return \Nette\Database\Table\ActiveRow created row
+	 */
 	public function addWallPost($id, $content, $privacy = SELF::ALL) {
 	    $wall = $this->connection->table('wall');
 	    return $wall->insert(array(
@@ -111,6 +184,14 @@ class Users extends Table implements Security\IAuthenticator
 	    ));
 	}
 	
+	/**
+	 * Adds comment to users's wallpost
+	 * 
+	 * @param int $userId id of comment's author
+	 * @param int $wallpostId id of wallpost
+	 * @param string $content content of the comment
+	 * @return \Nette\Database\Table\ActiveRow created row
+	 */
 	public function addComment($userId, $wallpostId, $content) {
 	    $comments = $this->connection->table('comments');
 	    return $comments->insert(array(
@@ -123,6 +204,8 @@ class Users extends Table implements Security\IAuthenticator
 	
 	/**
 	 * Performs an authentication.
+	 * 
+	 * @param array $credentials array of users credentials array(email, password)
 	 * @return Nette\Security\Identity
 	 * @throws Nette\Security\AuthenticationException
 	 */
@@ -144,6 +227,13 @@ class Users extends Table implements Security\IAuthenticator
 		return new Security\Identity($row->id, 1, $arr);
 	}
 	
+	/**
+	 * Creates password hash
+	 * 
+	 * @param string $password password
+	 * @param string $salt salt
+	 * @return string Hashed password
+	 */
 	public function getPasswordHash ($password, $salt) {
 		return sha1($password . "are14%!u@#raia" . $salt);
 	}

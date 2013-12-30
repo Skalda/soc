@@ -1,6 +1,9 @@
 {block content}
 <h1>Vozidla</h1>
-
+<div class="row">
+<a n:href="add"><button type="button" class="btn btn-md btn-default">Přidat vozidlo</button></a>
+</div>
+<br>
 {foreach $vehicleslist as $v}
 {first 4}<div class="row">{/first}
 <div class="col-md-2">
@@ -20,13 +23,4 @@
 {last 4}</div>{/last}
 {/foreach}
 
-<div class="row">
-  <div class="col-md-3">
-      <ul class="nav nav-pills nav-stacked">
-	  <li {ifCurrent passwordChange}class="active"{/ifCurrent}><a n:href="add">Přidat vozidlo</a></li>
-      </ul>
-  </div>
-  <div class="col-md-9">
-      {block con}{/block}
-  </div>
 </div>

@@ -30,6 +30,7 @@ common:
 		routesModel: Model\Routes
 		routeUsersModel: Model\RouteUsers
 		vehiclesModel: Model\Vehicles
+		EntriesModel: Model\Entries
 		friendsModel: Model\Friends
 		groupsModel: Model\Groups
 		routerFactory: RouterFactory
@@ -49,4 +50,4 @@ development < common:
 		database:
 			dsn: 'mysql:host=localhost;dbname=sociocars'
 			user: root
-			password: 
+			password: toor

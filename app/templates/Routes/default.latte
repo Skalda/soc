@@ -1,5 +1,5 @@
 {block content}
 <h1>Trasy</h1>
 <ul n:inner-foreach="$routeslist as $r">
-    <li><a n:href="Route:, id=>$r->id">{$r->start_time} {$r->name}</a></li>
+    <li><a n:href="Route:, id=>$r->id">[{$r->start_time}] {$r->name}</a></li>
 </ul>

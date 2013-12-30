@@ -9,7 +9,7 @@
 		Autor: <a n:href="User: id=>$group->user->id">{$group->user->email}</a><br>
 		Popis: {$group->desc}<br>
 		{if $user->getId() == $group->user->id}
-		<button type="button" class="btn btn-md btn-default"><a n:href="modifyGroup id=>$group->id">Upravit skupinu</a></button>
+		<a n:href="modifyGroup id=>$group->id"><button type="button" class="btn btn-md btn-default">Upravit skupinu</button></a>
 		{/if}
             </div>
           </div>
@@ -34,7 +34,7 @@
 		    </ul>
 		  </div>
 		{else}
-		    <li><button type="button" class="btn btn-lg btn-link"><a n:href="becomeMember!">Přidání se do skupiny</a></button></li>
+		    <a n:href="becomeMember!"><button type="button" class="btn btn-lg btn-link">Přidání se do skupiny</button></a>
 		{/if}
 	    {/if}
 	</ul>

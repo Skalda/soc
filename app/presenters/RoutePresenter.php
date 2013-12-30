@@ -56,9 +56,18 @@ class RoutePresenter extends BasePresenter
 		$this->template->vehiclename = $this->vehicles->getVehicle($route->vehicles_id)['name'];
 		$this->template->usermail = $this->users->getUser($route->users_id)['email'];
 		$this->template->sharers = $this->routeUsers->getRoutesUsers($this->routeId);
-		$this->template->path = $this->routes->getPath($id);
+		$routePoints = $this->routes->getRoutePoints($id);
+		foreach($routePoints as $point) {
+		    $this['map']->addPoint($point->y, $point->x);
+		}
+		
 	}
 
+	public function createComponentMap() {
+		$map = new Components\Map();
+		return $map;
+	}
+	
 	public function actionModifyRoute($id) {
 		$this->routeId = $id;
 	}
@@ -66,12 +75,13 @@ class RoutePresenter extends BasePresenter
 	public function renderModifyRoute($id) {
 		$route = $this->routes->find($id);
 		if(count($route) == 0) $this->redirect('Homepage:');
-		$this->template->routeinfo = $route;
-		$this->template->vehiclename = $this->vehicles->getVehicle($route->vehicles_id)['name'];
-		$this->template->usermail = $this->users->getUser($route->users_id)['email'];
-		$this->template->sharers = $this->routeUsers->getRoutesUsers($this->routeId);
-		$this->template->path = $this->routes->getPath($id);
-	    $this['modifyRouteForm']->setDefaults($route);
+		$sharers = $this->routeUsers->getRoutesUsers($this->routeId)->fetchPairs('id');
+		$this['modifyRouteForm']->setDefaults($route);
+		$defaults = array();
+		foreach($sharers as $key => $val) {
+		    $defaults[] = $key;
+		}
+		$this['modifyRouteForm']['sharers']->setDefaultValue($defaults);
 	}
 	
 	public function createComponentModifyRouteForm() {
@@ -89,11 +99,6 @@ class RoutePresenter extends BasePresenter
 	    $values = $form->getValues();
 	    $route = $this->routes->modifyRoute($this->routeId, $values->name, $values->vehicle, $values->sharers);
 	    $this->flashMessage('Údaje byly změněny.', 'success');
-	    $this->template->routeinfo = $route;
-	    $this->template->vehiclename = $this->vehicles->getVehicle($route->vehicles_id)['name'];
-		$this->template->usermail = $this->users->getUser($route->users_id)['email'];
-		$this->template->sharers = $this->routeUsers->getRoutesUsers($this->routeId);
-		$this->template->path = $this->routes->getPath($this->routeId);
 	    $this->redirect('default', array('id'=>$this->routeId));
 	}
 
@@ -108,6 +113,5 @@ class RoutePresenter extends BasePresenter
 		$this->template->vehiclename = $this->vehicles->getVehicle($route->vehicles_id)['name'];
 		$this->template->usermail = $this->users->getUser($route->users_id)['email'];
 		$this->template->sharers = $this->routeUsers->getRoutesUsers($this->routeId);
-		$this->template->path = $this->routes->getPath($id);
 	}
 }

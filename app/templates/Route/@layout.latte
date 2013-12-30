@@ -12,7 +12,7 @@
 			Vozidlo: {$vehiclename}<br>
 			Nahrál: {$usermail}<br>
 			{if $user->getId() == $routeinfo['users_id']}
-			<button type="button" class="btn btn-md btn-default"><a n:href="modifyRoute id=>$routeId">Upravit trasu</a></button>
+			<a n:href="modifyRoute id=>$routeId"><button type="button" class="btn btn-md btn-default">Upravit trasu</button></a>
 			{/if}
         </div>
     </div>
